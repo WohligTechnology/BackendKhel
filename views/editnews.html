@@ -1,0 +1,21 @@
+<div class="page">
+    <h2 class="title">
+</h2>
+
+    <div class="row">
+        <div class="col-md-12">
+            <section class="panel panel-default" style="border-radius:0px;">
+                <div class="panel-heading panel-hdr"><span class="glyphicon glyphicon-th mr5"></span>Edit News
+                </div>
+                <div class="panel-body">
+                    <form name="form_constraints" class="form-validation" data-ng-submit="submitForm()">
+                        <div class='form-group'><label>Title</label><input type='text' class='form-control' ng-model = 'news.title' placeholder='Title' required > </div><div class='form-group'><label for='exampleInputEmail1'>Content</label><textarea class='form-control' ng-model = 'news.content' placeholder='Content' required ></textarea></div><div class='form-group'><label>Timestamp</label><input type='date' class='form-control' ng-model = 'news.timestamp' placeholder='Timestamp' hidden > </div><div class='form-group'><label>Team</label> <select ng-model = 'news.team' class = 'form-control'> <option value =''>Please Select</option> <option ng-repeat = 'value in team' value='{{value._id}}'>{{value.name}}</option></select></div><!--Add New Tags-->
+                        <div class="text-center" style="padding-bottom:20px;">
+                            <button type="submit" class="btn btn-primary all-btn">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
