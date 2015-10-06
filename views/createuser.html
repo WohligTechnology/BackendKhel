@@ -1,7 +1,6 @@
 <div class="page">
     <h2 class="title">
 </h2>
-
     <div class="row">
         <div class="col-md-12">
             <section class="panel panel-default" style="border-radius:0px;">
@@ -21,7 +20,7 @@
                         </div>
                         <div class='form-group'>
                             <label>Registration Date</label>
-                            <input type='date' class='form-control' ng-model='user.registrationdate' placeholder='Registration Date' required> </div>
+                            <input type='date' class='form-control' ng-model='user.registrationdate' disabled="disabled"> </div>
                         <div class='form-group'>
                             <label>Date of birth</label>
                             <input type='date' class='form-control' ng-model='user.dateofbirth' placeholder='Date of birth' required> </div>
@@ -60,7 +59,8 @@
                         </div>
                         <div class='form-group'>
                             <label>Email Id</label>
-                            <input type='email' class='form-control' ng-model='user.emailid' placeholder='Email Id' required> </div>
+                            <input type='email' class='form-control' ng-model='user.email' ng-change="email(user.email)" placeholder='Email Id' required><span ng-if="isValidEmail==0" style="color:red;">Email id already exists.</span>
+                        </div>
                         <div class='form-group'>
                             <label for='exampleInputEmail1'>Address</label>
                             <textarea class='form-control' ng-model='user.address' placeholder='Address' required></textarea>
@@ -87,13 +87,6 @@
                             <label>Pincode</label>
                             <input type='text' class='form-control' ng-model='user.pincode' placeholder='Pincode' required> </div>
                         <div class='form-group'>
-                            <label>Team</label>
-                            <select ng-model='user.team' class='form-control'>
-                                <option value=''>Please Select</option>
-                                <option ng-repeat='value in team' value='{{value._id}}'>{{value.name}}</option>
-                            </select>
-                        </div>
-                        <div class='form-group'>
                             <label>Sport</label>
                             <select ng-model='user.sport' class='form-control'>
                                 <option value=''>Please Select</option>
@@ -118,9 +111,77 @@
                                 <option value='no'>No</option>
                             </select>
                         </div>
+                        <div class="form-group" id="div1">
+                            <div class="col-md-3">
+                                <div class="addborder">
+                                    <input type="checkbox" ng-disabled="divs[0].value" ng-click="pushorpopquiz('Quiz');enableordisable('div1');" ng-model="divmodel.quiz">QUIZ
+                                    <hr class="lesshr">
+                                    <div>
+                                        <input type="checkbox" id="quiz1" ng-disabled="quizdisable" ng-click="pushorpopquiz('Quiz');">Quiz
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" id="div2">
+                            <div class="col-md-3">
+                                <div class="addborder">
+                                    <input type="checkbox" ng-disabled="divs[1].value" ng-click="pushorpopaqua('Aquatics');enableordisable('div2');" ng-model="divmodel.aquatics">AQUATICS
+                                    <hr class="lesshr">
+                                    <div>
+                                        <input type="checkbox" id="aqua1" ng-click="pushorpopaqua('Aquatics');" ng-disabled="aquaticsdisable">Aqautics
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" id="div3">
+                            <div class="col-md-3">
+                                <div class="addborder">
+                                    <input type="checkbox" ng-disabled="divs[2].value" ng-click="enableordisable('div3');" ng-model="divmodel.dance">DANCE & STREET PLAY
+                                    <hr class="lesshr">
+                                    <div>
+                                        <input type="checkbox" id="dance1" ng-disabled="dancedisable" ng-click="pushorpopdance('Dance');">Dance
+                                    </div>
+                                    <div>
+                                        <input type="checkbox" id="dance2" ng-disabled="dancedisable" ng-click="pushorpopdance('Street Play');">Street Play
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" id="div4">
+                            <div class="col-md-3">
+                                <div class="addborder">
+                                    <input type="checkbox" ng-disabled="divs[3].value" ng-click="enableordisable('div4');" ng-model="divmodel.sports">TEAM GAMES & ATHLETICS
+                                    <hr class="lesshr">
+                                    <div ng-repeat="sports in allsports">
+                                        <input type="checkbox" id="{{sports+$index}}" ng-click="pushorpopsports(sports)" ng-disabled="sportsdisable">{{sports}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12" style="padding-top: 20px;">
+                            <span style="color:red;">Note: Kindly Click on Volunteer Circle if u want to participate as Volunteer</span>
+                        </div>
+                        <div class="col-md-12" style="padding:20px 0;">
+                            <div class="col-md-3">
+                                <input type="checkbox" ng-click="pushorpopvolun('Banner Desigining / Art Work');">Banner Desigining / Art Work
+                            </div>
+                            <div class="col-md-3">
+                                <input type="checkbox" ng-click="pushorpopvolun('Slogan And Other Write UPS');">Slogan And Other Write UPS
+                            </div>
+                            <div class="col-md-3">
+                                <input type="checkbox" ng-click="pushorpopvolun('Cycling');">Cycling
+                            </div>
+                            <div class="col-md-3">
+                                <input type="checkbox" ng-click="pushorpopvolun('Volunteer');">Volunteer
+                            </div>
+                        </div>
                         <!--Add New Tags-->
-                        <div class="text-center" style="padding-bottom:20px;">
-                            <button type="submit" class="btn btn-primary all-btn">Submit</button>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <div class="text-center" style="padding:20px 0;">
+                                    <button type="submit" class="btn btn-primary all-btn">Submit</button>
+                                </div>
+                            </div>
                         </div>
                     </form>
                 </div>

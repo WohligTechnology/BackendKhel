@@ -2,9 +2,7 @@ var uploadres = [];
 var selectedData = [];
 var abc = {};
 var phonecatControllers = angular.module('phonecatControllers', ['templateservicemod', 'navigationservice', 'ngDialog', 'angularFileUpload', 'ui.select', 'ngSanitize']);
-window.uploadUrl = 'http://104.197.23.70/user/uploadfile';
-//window.uploadUrl = 'http://192.168.2.22:1337/user/uploadfile';
-//window.uploadUrl = 'http://localhost:1337/user/uploadfile';
+window.uploadUrl = 'http://192.168.2.22:1337/user/uploadfile';
 phonecatControllers.controller('home', function($scope, TemplateService, NavigationService, $routeParams, $location) {
     $scope.template = TemplateService;
     $scope.menutitle = NavigationService.makeactive("Dashboard");
@@ -13,9 +11,9 @@ phonecatControllers.controller('home', function($scope, TemplateService, Navigat
     TemplateService.content = "views/dashboard.html";
     TemplateService.list = 1;
     $scope.navigation = NavigationService.getnav();
-    //  NavigationService.countUser(function(data, status) {
-    //    $scope.user = data;
-    //  });
+    NavigationService.countUser(function(data, status) {
+        $scope.user = data;
+    });
 });
 phonecatControllers.controller('login', function($scope, TemplateService, NavigationService, $routeParams, $location) {
     $scope.template = TemplateService;
@@ -27,7 +25,6 @@ phonecatControllers.controller('login', function($scope, TemplateService, Naviga
     $scope.isValidLogin = 1;
     $scope.login = {};
     $scope.verifylogin = function() {
-        console.log($scope.login);
         if ($scope.login.email && $scope.login.password) {
             NavigationService.adminLogin($scope.login, function(data, status) {
                 if (data.value == "false") {
@@ -39,7 +36,6 @@ phonecatControllers.controller('login', function($scope, TemplateService, Naviga
                 }
             })
         } else {
-            console.log("blank login");
             $scope.isValidLogin = 0;
         }
 
@@ -60,14 +56,11 @@ phonecatControllers.controller('createorder', function($scope, TemplateService, 
     TemplateService.list = 2;
     TemplateService.content = "views/createorder.html";
     $scope.navigation = NavigationService.getnav();
-    console.log($routeParams.id);
 
     $scope.order = {};
 
     $scope.submitForm = function() {
-        console.log($scope.order);
         NavigationService.saveOrder($scope.order, function(data, status) {
-            console.log(data);
             $location.url("/order");
         });
     };
@@ -93,9 +86,7 @@ phonecatControllers.controller('createorder', function($scope, TemplateService, 
                 $scope.order.tag = select.selected;
             }
         });
-        console.log($scope.artwork.tag);
     }
-
 
     $scope.refreshOrder = function(search) {
         $scope.tag = [];
@@ -171,7 +162,6 @@ phonecatControllers.controller('UserCtrl', function($scope, TemplateService, Nav
     $scope.reload = function(pagedata) {
         $scope.pagedata = pagedata;
         NavigationService.findLimitedUser($scope.pagedata, function(data, status) {
-            console.log(data);
             $scope.user = data;
             $scope.pages = [];
             var newclass = '';
@@ -200,7 +190,7 @@ phonecatControllers.controller('UserCtrl', function($scope, TemplateService, Nav
             ngDialog.open({
                 template: 'views/delete.html',
                 closeByEscape: false,
-                controller: 'User',
+                controller: 'UserCtrl',
                 closeByDocument: false
             });
         }
@@ -208,7 +198,7 @@ phonecatControllers.controller('UserCtrl', function($scope, TemplateService, Nav
 });
 //user Controller
 //createUser Controller
-phonecatControllers.controller('createUserCtrl', function($scope, TemplateService, NavigationService, $routeParams, $location, ngDialog) {
+phonecatControllers.controller('createUserCtrl', function($scope, TemplateService, NavigationService, $routeParams, $location, ngDialog, $timeout) {
     $scope.template = TemplateService;
     $scope.menutitle = NavigationService.makeactive('User');
     TemplateService.title = $scope.menutitle;
@@ -217,11 +207,186 @@ phonecatControllers.controller('createUserCtrl', function($scope, TemplateServic
     TemplateService.list = 2;
     $scope.navigation = NavigationService.getnav();
     $scope.user = {};
-    $scope.submitForm = function() {
-        NavigationService.saveUser($scope.user, function(data, status) {
-            $location.url('/user');
-        });
+    $scope.isValidEmail = 1;
+    $scope.user.registrationdate = new Date();
+    $scope.allsports = ["Bucket Ball", "Handminton", "Lagori", "Handball", "3 Legged Race", "4 Legged Race", "Triathalon", "Relay", "Skating Relay", "Tug of War"];
+
+    //////////////////////////
+    $scope.user.sports = [];
+    $scope.user.quiz = [];
+    $scope.user.aquatics = [];
+    $scope.user.dance = [];
+    $scope.user.volunteer = [];
+    $scope.checked = [];
+    $scope.divs = [{
+        name: "div1",
+        vlaue: false
+    }, {
+        name: "div2",
+        value: false
+    }, {
+        name: "div3",
+        value: false
+    }, {
+        name: "div4",
+        value: false
+    }];
+    $scope.divmodel = {};
+    $scope.divmodel.sports = false;
+    $scope.divmodel.quiz = false;
+    $scope.divmodel.aquatics = false;
+    $scope.divmodel.dance = false;
+    $scope.dancedisable = true;
+    $scope.quizdisable = true;
+    $scope.aquaticsdisable = true;
+    $scope.sportsdisable = true;
+
+    $scope.enableordisable = function(value) {
+        checknow();
+        var popindex = $scope.checked.indexOf(value);
+        if (popindex == -1) {
+            if ($scope.checked.length <= 1) {
+                $scope.checked.push(value);
+                if ($scope.checked.length == 2) {
+                    _.each($scope.divs, function(n) {
+                        var foundindex = $scope.checked.indexOf(n.name);
+                        if (foundindex == -1) {
+                            n.value = true;
+                        } else {
+                            n.value = false;
+                        }
+                    })
+                }
+            }
+        } else {
+            $scope.checked.splice(popindex, 1);
+            _.each($scope.divs, function(n) {
+                n.value = false;
+            })
+        }
+
+        function checknow() {
+            if (value == 'div1') {
+                if ($scope.divmodel.quiz == false) {
+                    $scope.quizdisable = true;
+                    document.getElementById("quiz1").checked = false;
+                    $scope.user.quiz = [];
+                } else {
+                    $scope.quizdisable = false;
+                    document.getElementById("quiz1").checked = true;
+                }
+            }
+
+            if (value == 'div2') {
+                if ($scope.divmodel.aquatics == false) {
+                    $scope.aquaticsdisable = true;
+                    document.getElementById("aqua1").checked = false;
+                    $scope.user.aquatics = []
+                } else {
+                    $scope.aquaticsdisable = false;
+                    document.getElementById("aqua1").checked = true;
+                }
+            }
+
+            if (value == 'div3') {
+                if ($scope.divmodel.dance == false) {
+                    $scope.dancedisable = true;
+                    document.getElementById("dance1").checked = false;
+                    document.getElementById("dance2").checked = false;
+                    $scope.user.dance = [];
+                } else {
+                    $scope.dancedisable = false;
+                }
+            }
+
+            if (value == 'div4') {
+                if ($scope.divmodel.sports == false) {
+                    $scope.sportsdisable = true;
+                    for (var i = 0; i < $scope.allsports.length; i++) {
+                        document.getElementById($scope.allsports[i] + i + "").checked = false;
+                        $scope.user.sports = [];
+                    }
+                } else {
+                    $scope.sportsdisable = false;
+                }
+            }
+        }
     };
+
+    $scope.pushorpopsports = function(value) {
+        if ($scope.divmodel.sports != false) {
+            var popindex = $scope.user.sports.indexOf(value);
+            if (popindex == -1)
+                $scope.user.sports.push(value);
+            else
+                $scope.user.sports.splice(popindex, 1);
+        }
+    }
+
+    $scope.pushorpopquiz = function(value) {
+        var popindex = $scope.user.quiz.indexOf(value);
+        if (popindex == -1)
+            $scope.user.quiz.push(value);
+        else {
+            $scope.user.quiz.splice(popindex, 1);
+        }
+    }
+
+    $scope.pushorpopaqua = function(value) {
+        var popindex = $scope.user.aquatics.indexOf(value);
+        if (popindex == -1)
+            $scope.user.aquatics.push(value);
+        else
+            $scope.user.aquatics.splice(popindex, 1);
+    }
+
+    $scope.pushorpopdance = function(value) {
+        var popindex = $scope.user.dance.indexOf(value);
+        if (popindex == -1)
+            $scope.user.dance.push(value);
+        else
+            $scope.user.dance.splice(popindex, 1);
+    }
+
+    $scope.pushorpopvolun = function(value) {
+        var popindex = $scope.user.volunteer.indexOf(value);
+        if (popindex == -1)
+            $scope.user.volunteer.push(value);
+        else
+            $scope.user.volunteer.splice(popindex, 1);
+    };
+    //////////////////////////
+
+    $scope.submitForm = function() {
+        if ($scope.isValidEmail == 1) {
+            NavigationService.saveUser($scope.user, function(data, status) {
+                if (data.value == false && data.comment == "No such pincode") {
+                    ngDialog.open({
+                        template: 'views/pincode.html',
+                        closeByEscape: false,
+                        controller: 'createUserCtrl',
+                        closeByDocument: false
+                    });
+                    $timeout(function() {
+                        ngDialog.close();
+                    }, 2500);
+                } else if (data.value == true) {
+                    $location.url('/user');
+                }
+            });
+        }
+    };
+    $scope.email = function(myemail) {
+        if (myemail) {
+            NavigationService.getOneemail(myemail, function(data, status) {
+                if (data.value == true) {
+                    $scope.isValidEmail = 0;
+                } else {
+                    $scope.isValidEmail = 1;
+                }
+            });
+        }
+    }
     $scope.user.village = [];
     $scope.ismatchVillage = function(data, select) {
         _.each(data, function(l, key) {
@@ -319,7 +484,7 @@ phonecatControllers.controller('createUserCtrl', function($scope, TemplateServic
 });
 //createUser Controller
 //editUser Controller
-phonecatControllers.controller('editUserCtrl', function($scope, TemplateService, NavigationService, $routeParams, $location, ngDialog) {
+phonecatControllers.controller('editUserCtrl', function($scope, TemplateService, NavigationService, $routeParams, $location, ngDialog, $timeout) {
     $scope.template = TemplateService;
     $scope.menutitle = NavigationService.makeactive('User');
     TemplateService.title = $scope.menutitle;
@@ -328,6 +493,7 @@ phonecatControllers.controller('editUserCtrl', function($scope, TemplateService,
     TemplateService.list = 2;
     $scope.navigation = NavigationService.getnav();
     $scope.user = {};
+    $scope.allsports = ["Bucket Ball", "Handminton", "Lagori", "Handball", "3 Legged Race", "4 Legged Race", "Triathalon", "Relay", "Skating Relay", "Tug of War"];
     NavigationService.getOneUser($routeParams.id, function(data, status) {
         console.log(data);
         $scope.user = data; //Add More Array
@@ -340,10 +506,166 @@ phonecatControllers.controller('editUserCtrl', function($scope, TemplateService,
         $scope.user.dateofbirth = new Date($scope.user.dateofbirth);
         $scope.user.registrationdate = new Date($scope.user.registrationdate);
     });
+    /////////////////////////////
+    $scope.user.sports = [];
+    $scope.user.quiz = [];
+    $scope.user.aquatics = [];
+    $scope.user.dance = [];
+    $scope.user.volunteer = [];
+    $scope.checked = [];
+    $scope.divs = [{
+        name: "div1",
+        vlaue: false
+    }, {
+        name: "div2",
+        value: false
+    }, {
+        name: "div3",
+        value: false
+    }, {
+        name: "div4",
+        value: false
+    }];
+    $scope.divmodel = {};
+    $scope.divmodel.sports = false;
+    $scope.divmodel.quiz = false;
+    $scope.divmodel.aquatics = false;
+    $scope.divmodel.dance = false;
+    $scope.dancedisable = true;
+    $scope.quizdisable = true;
+    $scope.aquaticsdisable = true;
+    $scope.sportsdisable = true;
+
+    $scope.enableordisable = function(value) {
+        checknow();
+        var popindex = $scope.checked.indexOf(value);
+        if (popindex == -1) {
+            if ($scope.checked.length <= 1) {
+                $scope.checked.push(value);
+                if ($scope.checked.length == 2) {
+                    _.each($scope.divs, function(n) {
+                        var foundindex = $scope.checked.indexOf(n.name);
+                        if (foundindex == -1) {
+                            n.value = true;
+                        } else {
+                            n.value = false;
+                        }
+                    })
+                }
+            }
+        } else {
+            $scope.checked.splice(popindex, 1);
+            _.each($scope.divs, function(n) {
+                n.value = false;
+            })
+        }
+
+        function checknow() {
+            if (value == 'div1') {
+                if ($scope.divmodel.quiz == false) {
+                    $scope.quizdisable = true;
+                    document.getElementById("quiz1").checked = false;
+                    $scope.user.quiz = [];
+                } else {
+                    $scope.quizdisable = false;
+                    document.getElementById("quiz1").checked = true;
+                }
+            }
+
+            if (value == 'div2') {
+                if ($scope.divmodel.aquatics == false) {
+                    $scope.aquaticsdisable = true;
+                    document.getElementById("aqua1").checked = false;
+                    $scope.user.aquatics = []
+                } else {
+                    $scope.aquaticsdisable = false;
+                    document.getElementById("aqua1").checked = true;
+                }
+            }
+
+            if (value == 'div3') {
+                if ($scope.divmodel.dance == false) {
+                    $scope.dancedisable = true;
+                    document.getElementById("dance1").checked = false;
+                    document.getElementById("dance2").checked = false;
+                    $scope.user.dance = [];
+                } else {
+                    $scope.dancedisable = false;
+                }
+            }
+
+            if (value == 'div4') {
+                if ($scope.divmodel.sports == false) {
+                    $scope.sportsdisable = true;
+                    for (var i = 0; i < $scope.allsports.length; i++) {
+                        document.getElementById($scope.allsports[i] + i + "").checked = false;
+                        $scope.user.sports = [];
+                    }
+                } else {
+                    $scope.sportsdisable = false;
+                }
+            }
+        }
+    };
+
+    $scope.pushorpopsports = function(value) {
+        if ($scope.divmodel.sports != false) {
+            var popindex = $scope.user.sports.indexOf(value);
+            if (popindex == -1)
+                $scope.user.sports.push(value);
+            else
+                $scope.user.sports.splice(popindex, 1);
+        }
+    }
+
+    $scope.pushorpopquiz = function(value) {
+        var popindex = $scope.user.quiz.indexOf(value);
+        if (popindex == -1)
+            $scope.user.quiz.push(value);
+        else {
+            $scope.user.quiz.splice(popindex, 1);
+        }
+    }
+
+    $scope.pushorpopaqua = function(value) {
+        var popindex = $scope.user.aquatics.indexOf(value);
+        if (popindex == -1)
+            $scope.user.aquatics.push(value);
+        else
+            $scope.user.aquatics.splice(popindex, 1);
+    }
+
+    $scope.pushorpopdance = function(value) {
+        var popindex = $scope.user.dance.indexOf(value);
+        if (popindex == -1)
+            $scope.user.dance.push(value);
+        else
+            $scope.user.dance.splice(popindex, 1);
+    }
+
+    $scope.pushorpopvolun = function(value) {
+        var popindex = $scope.user.volunteer.indexOf(value);
+        if (popindex == -1)
+            $scope.user.volunteer.push(value);
+        else
+            $scope.user.volunteer.splice(popindex, 1);
+    };
+    /////////////////////////////
     $scope.submitForm = function() {
-        $scope.user._id = $routeParams.id;
         NavigationService.saveUser($scope.user, function(data, status) {
-            $location.url('/user');
+            if (data.value == false && data.comment == "No such pincode") {
+                ngDialog.open({
+                    template: 'views/pincode.html',
+                    closeByEscape: false,
+                    controller: 'createUserCtrl',
+                    closeByDocument: false
+                });
+                $timeout(function() {
+                    ngDialog.close();
+                }, 2500);
+            } else if (data.value == true) {
+                $location.url('/user');
+            }
         });
     };
     $scope.user.village = [];
@@ -607,7 +929,6 @@ phonecatControllers.controller('createTeamCtrl', function($scope, TemplateServic
     $scope.allsports = [];
 
     NavigationService.getSports(function(data, status) {
-        console.log(data);
         $scope.allsports = data;
         if (data.value || data.value == false) {
             $scope.allsports = [];

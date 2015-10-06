@@ -6,14 +6,13 @@ var adminlogin = {
 };
 var navigationservice = angular.module('navigationservice', [])
 
-.factory('NavigationService', function ($http) {
+.factory('NavigationService', function($http) {
     var navigation = [{
             name: "Dashboard",
             classis: "active",
             link: "#/home",
             subnav: []
-    },
-        {
+        }, {
             name: 'User',
             active: '',
             link: '#/user',
@@ -55,10 +54,10 @@ var navigationservice = angular.module('navigationservice', [])
             subnav: []
         }, //Add New Left
 
-  ];
+    ];
 
     return {
-        makeactive: function (menuname) {
+        makeactive: function(menuname) {
             for (var i = 0; i < navigation.length; i++) {
                 if (navigation[i].name == menuname) {
                     navigation[i].classis = "active";
@@ -68,10 +67,10 @@ var navigationservice = angular.module('navigationservice', [])
             }
             return menuname;
         },
-        getnav: function () {
+        getnav: function() {
             return navigation;
         },
-        adminLogin: function (data, callback) {
+        adminLogin: function(data, callback) {
             $http({
                 url: adminurl + "user/adminlogin",
                 method: "POST",
@@ -81,16 +80,16 @@ var navigationservice = angular.module('navigationservice', [])
                 }
             }).success(callback);
         },
-        //    countUser: function(callback) {
-        //      $http.get(adminurl + "user/countusers").success(callback);
-        //    },
-        setUser: function (data) {
+        countUser: function(callback) {
+            $http.get(adminurl + "user/countusers").success(callback);
+        },
+        setUser: function(data) {
             $.jStorage.set("user", data);
         },
-        getUser: function () {
+        getUser: function() {
             $.jStorage.get("user");
         },
-        getOneUser: function (id, callback) {
+        getOneUser: function(id, callback) {
             $http({
                 url: adminurl + 'user/findone',
                 method: 'POST',
@@ -99,7 +98,16 @@ var navigationservice = angular.module('navigationservice', [])
                 }
             }).success(callback);
         },
-        findLimitedUser: function (user, callback) {
+        getOneemail: function(email, callback) {
+            $http({
+                url: adminurl + 'user/searchmail',
+                method: 'POST',
+                data: {
+                    'email': email
+                }
+            }).success(callback);
+        },
+        findLimitedUser: function(user, callback) {
             $http({
                 url: adminurl + 'user/findlimited',
                 method: 'POST',
@@ -110,7 +118,7 @@ var navigationservice = angular.module('navigationservice', [])
                 }
             }).success(callback);
         },
-        deleteUser: function (callback) {
+        deleteUser: function(callback) {
             $http({
                 url: adminurl + 'user/delete',
                 method: 'POST',
@@ -119,14 +127,14 @@ var navigationservice = angular.module('navigationservice', [])
                 }
             }).success(callback);
         },
-        saveUser: function (data, callback) {
+        saveUser: function(data, callback) {
             $http({
                 url: adminurl + 'user/save',
                 method: 'POST',
                 data: data
             }).success(callback);
         },
-        saveVillage: function (data, callback) {
+        saveVillage: function(data, callback) {
             $http({
                 url: adminurl + 'village/save',
                 method: 'POST',
@@ -135,7 +143,7 @@ var navigationservice = angular.module('navigationservice', [])
                 }
             }).success(callback);
         },
-        findVillage: function (data, village, callback) {
+        findVillage: function(data, village, callback) {
             $http({
                 url: adminurl + 'village/find',
                 method: 'POST',
@@ -145,7 +153,7 @@ var navigationservice = angular.module('navigationservice', [])
                 }
             }).success(callback);
         },
-        saveArea: function (data, callback) {
+        saveArea: function(data, callback) {
             $http({
                 url: adminurl + 'area/save',
                 method: 'POST',
@@ -154,7 +162,7 @@ var navigationservice = angular.module('navigationservice', [])
                 }
             }).success(callback);
         },
-        findArea: function (data, area, callback) {
+        findArea: function(data, area, callback) {
             $http({
                 url: adminurl + 'area/find',
                 method: 'POST',
@@ -164,21 +172,21 @@ var navigationservice = angular.module('navigationservice', [])
                 }
             }).success(callback);
         },
-        getTeam: function (callback) {
+        getTeam: function(callback) {
             $http({
                 url: adminurl + 'team/find',
                 method: 'POST',
                 data: {}
             }).success(callback);
         },
-        getSports: function (callback) {
+        getSports: function(callback) {
             $http({
                 url: adminurl + 'sports/find',
                 method: 'POST',
                 data: {}
             }).success(callback);
         },
-        saveVolunteers: function (data, callback) {
+        saveVolunteers: function(data, callback) {
             $http({
                 url: adminurl + 'volunteers/save',
                 method: 'POST',
@@ -187,7 +195,7 @@ var navigationservice = angular.module('navigationservice', [])
                 }
             }).success(callback);
         },
-        findVolunteers: function (data, volunteers, callback) {
+        findVolunteers: function(data, volunteers, callback) {
             $http({
                 url: adminurl + 'volunteers/find',
                 method: 'POST',
@@ -197,7 +205,7 @@ var navigationservice = angular.module('navigationservice', [])
                 }
             }).success(callback);
         },
-        getOneArticles: function (id, callback) {
+        getOneArticles: function(id, callback) {
             $http({
                 url: adminurl + 'articles/findone',
                 method: 'POST',
@@ -206,7 +214,7 @@ var navigationservice = angular.module('navigationservice', [])
                 }
             }).success(callback);
         },
-        findLimitedArticles: function (articles, callback) {
+        findLimitedArticles: function(articles, callback) {
             $http({
                 url: adminurl + 'articles/findlimited',
                 method: 'POST',
@@ -217,7 +225,7 @@ var navigationservice = angular.module('navigationservice', [])
                 }
             }).success(callback);
         },
-        deleteArticles: function (callback) {
+        deleteArticles: function(callback) {
             $http({
                 url: adminurl + 'articles/delete',
                 method: 'POST',
@@ -226,14 +234,14 @@ var navigationservice = angular.module('navigationservice', [])
                 }
             }).success(callback);
         },
-        saveArticles: function (data, callback) {
+        saveArticles: function(data, callback) {
             $http({
                 url: adminurl + 'articles/save',
                 method: 'POST',
                 data: data
             }).success(callback);
         },
-        getOneTeam: function (id, callback) {
+        getOneTeam: function(id, callback) {
             $http({
                 url: adminurl + 'team/findone',
                 method: 'POST',
@@ -242,7 +250,7 @@ var navigationservice = angular.module('navigationservice', [])
                 }
             }).success(callback);
         },
-        findLimitedTeam: function (team, callback) {
+        findLimitedTeam: function(team, callback) {
             $http({
                 url: adminurl + 'team/findlimited',
                 method: 'POST',
@@ -253,7 +261,7 @@ var navigationservice = angular.module('navigationservice', [])
                 }
             }).success(callback);
         },
-        deleteTeam: function (callback) {
+        deleteTeam: function(callback) {
             $http({
                 url: adminurl + 'team/delete',
                 method: 'POST',
@@ -262,14 +270,14 @@ var navigationservice = angular.module('navigationservice', [])
                 }
             }).success(callback);
         },
-        saveTeam: function (data, callback) {
+        saveTeam: function(data, callback) {
             $http({
                 url: adminurl + 'team/save',
                 method: 'POST',
                 data: data
             }).success(callback);
         },
-        getOneSports: function (id, callback) {
+        getOneSports: function(id, callback) {
             $http({
                 url: adminurl + 'sports/findone',
                 method: 'POST',
@@ -278,7 +286,7 @@ var navigationservice = angular.module('navigationservice', [])
                 }
             }).success(callback);
         },
-        findLimitedSports: function (sports, callback) {
+        findLimitedSports: function(sports, callback) {
             $http({
                 url: adminurl + 'sports/findlimited',
                 method: 'POST',
@@ -289,7 +297,7 @@ var navigationservice = angular.module('navigationservice', [])
                 }
             }).success(callback);
         },
-        deleteSports: function (callback) {
+        deleteSports: function(callback) {
             $http({
                 url: adminurl + 'sports/delete',
                 method: 'POST',
@@ -298,14 +306,14 @@ var navigationservice = angular.module('navigationservice', [])
                 }
             }).success(callback);
         },
-        saveSports: function (data, callback) {
+        saveSports: function(data, callback) {
             $http({
                 url: adminurl + 'sports/save',
                 method: 'POST',
                 data: data
             }).success(callback);
         },
-        saveSubSports: function (data, callback) {
+        saveSubSports: function(data, callback) {
             $http({
                 url: adminurl + 'subsports/save',
                 method: 'POST',
@@ -314,7 +322,7 @@ var navigationservice = angular.module('navigationservice', [])
                 }
             }).success(callback);
         },
-        findSubSports: function (data, subsports, callback) {
+        findSubSports: function(data, subsports, callback) {
             $http({
                 url: adminurl + 'subsports/find',
                 method: 'POST',
@@ -324,7 +332,7 @@ var navigationservice = angular.module('navigationservice', [])
                 }
             }).success(callback);
         },
-        getOneNews: function (id, callback) {
+        getOneNews: function(id, callback) {
             $http({
                 url: adminurl + 'news/findone',
                 method: 'POST',
@@ -333,7 +341,7 @@ var navigationservice = angular.module('navigationservice', [])
                 }
             }).success(callback);
         },
-        findLimitedNews: function (news, callback) {
+        findLimitedNews: function(news, callback) {
             $http({
                 url: adminurl + 'news/findlimited',
                 method: 'POST',
@@ -344,7 +352,7 @@ var navigationservice = angular.module('navigationservice', [])
                 }
             }).success(callback);
         },
-        deleteNews: function (callback) {
+        deleteNews: function(callback) {
             $http({
                 url: adminurl + 'news/delete',
                 method: 'POST',
@@ -353,21 +361,21 @@ var navigationservice = angular.module('navigationservice', [])
                 }
             }).success(callback);
         },
-        saveNews: function (data, callback) {
+        saveNews: function(data, callback) {
             $http({
                 url: adminurl + 'news/save',
                 method: 'POST',
                 data: data
             }).success(callback);
         },
-        getTeam: function (callback) {
+        getTeam: function(callback) {
             $http({
                 url: adminurl + 'team/find',
                 method: 'POST',
                 data: {}
             }).success(callback);
         },
-        getOneNotification: function (id, callback) {
+        getOneNotification: function(id, callback) {
             $http({
                 url: adminurl + 'notification/findone',
                 method: 'POST',
@@ -376,7 +384,7 @@ var navigationservice = angular.module('navigationservice', [])
                 }
             }).success(callback);
         },
-        findLimitedNotification: function (notification, callback) {
+        findLimitedNotification: function(notification, callback) {
             $http({
                 url: adminurl + 'notification/findlimited',
                 method: 'POST',
@@ -387,7 +395,7 @@ var navigationservice = angular.module('navigationservice', [])
                 }
             }).success(callback);
         },
-        deleteNotification: function (callback) {
+        deleteNotification: function(callback) {
             $http({
                 url: adminurl + 'notification/delete',
                 method: 'POST',
@@ -396,14 +404,14 @@ var navigationservice = angular.module('navigationservice', [])
                 }
             }).success(callback);
         },
-        saveNotification: function (data, callback) {
+        saveNotification: function(data, callback) {
             $http({
                 url: adminurl + 'notification/save',
                 method: 'POST',
                 data: data
             }).success(callback);
         },
-        getOneSponsors: function (id, callback) {
+        getOneSponsors: function(id, callback) {
             $http({
                 url: adminurl + 'sponsors/findone',
                 method: 'POST',
@@ -412,7 +420,7 @@ var navigationservice = angular.module('navigationservice', [])
                 }
             }).success(callback);
         },
-        findLimitedSponsors: function (sponsors, callback) {
+        findLimitedSponsors: function(sponsors, callback) {
             $http({
                 url: adminurl + 'sponsors/findlimited',
                 method: 'POST',
@@ -423,7 +431,7 @@ var navigationservice = angular.module('navigationservice', [])
                 }
             }).success(callback);
         },
-        deleteSponsors: function (callback) {
+        deleteSponsors: function(callback) {
             $http({
                 url: adminurl + 'sponsors/delete',
                 method: 'POST',
@@ -432,14 +440,14 @@ var navigationservice = angular.module('navigationservice', [])
                 }
             }).success(callback);
         },
-        saveSponsors: function (data, callback) {
+        saveSponsors: function(data, callback) {
             $http({
                 url: adminurl + 'sponsors/save',
                 method: 'POST',
                 data: data
             }).success(callback);
         },
-        getOneAds: function (id, callback) {
+        getOneAds: function(id, callback) {
             $http({
                 url: adminurl + 'ads/findone',
                 method: 'POST',
@@ -448,7 +456,7 @@ var navigationservice = angular.module('navigationservice', [])
                 }
             }).success(callback);
         },
-        findLimitedAds: function (ads, callback) {
+        findLimitedAds: function(ads, callback) {
             $http({
                 url: adminurl + 'ads/findlimited',
                 method: 'POST',
@@ -459,7 +467,7 @@ var navigationservice = angular.module('navigationservice', [])
                 }
             }).success(callback);
         },
-        deleteAds: function (callback) {
+        deleteAds: function(callback) {
             $http({
                 url: adminurl + 'ads/delete',
                 method: 'POST',
@@ -468,7 +476,7 @@ var navigationservice = angular.module('navigationservice', [])
                 }
             }).success(callback);
         },
-        saveAds: function (data, callback) {
+        saveAds: function(data, callback) {
             $http({
                 url: adminurl + 'ads/save',
                 method: 'POST',
