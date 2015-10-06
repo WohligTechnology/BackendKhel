@@ -286,7 +286,6 @@ phonecatControllers.controller('createUserCtrl', function($scope, TemplateServic
                     $scope.user.aquatics = []
                 } else {
                     $scope.aquaticsdisable = false;
-                    document.getElementById("aqua1").checked = true;
                 }
             }
 
@@ -315,48 +314,6 @@ phonecatControllers.controller('createUserCtrl', function($scope, TemplateServic
         }
     };
 
-    $scope.pushorpopsports = function(value) {
-        if ($scope.divmodel.sports != false) {
-            var popindex = $scope.user.sports.indexOf(value);
-            if (popindex == -1)
-                $scope.user.sports.push(value);
-            else
-                $scope.user.sports.splice(popindex, 1);
-        }
-    }
-
-    $scope.pushorpopquiz = function(value) {
-        var popindex = $scope.user.quiz.indexOf(value);
-        if (popindex == -1)
-            $scope.user.quiz.push(value);
-        else {
-            $scope.user.quiz.splice(popindex, 1);
-        }
-    }
-
-    $scope.pushorpopaqua = function(value) {
-        var popindex = $scope.user.aquatics.indexOf(value);
-        if (popindex == -1)
-            $scope.user.aquatics.push(value);
-        else
-            $scope.user.aquatics.splice(popindex, 1);
-    }
-
-    $scope.pushorpopdance = function(value) {
-        var popindex = $scope.user.dance.indexOf(value);
-        if (popindex == -1)
-            $scope.user.dance.push(value);
-        else
-            $scope.user.dance.splice(popindex, 1);
-    }
-
-    $scope.pushorpopvolun = function(value) {
-        var popindex = $scope.user.volunteer.indexOf(value);
-        if (popindex == -1)
-            $scope.user.volunteer.push(value);
-        else
-            $scope.user.volunteer.splice(popindex, 1);
-    };
     //////////////////////////
 
     $scope.submitForm = function() {
@@ -496,8 +453,25 @@ phonecatControllers.controller('editUserCtrl', function($scope, TemplateService,
     $scope.navigation = NavigationService.getnav();
     $scope.user = {};
     $scope.allsports = ["Bucket Ball", "Handminton", "Lagori", "Handball", "3 Legged Race", "4 Legged Race", "Triathalon", "Relay", "Skating Relay", "Tug of War"];
+
+    $scope.divmodel = {};
+    $scope.divmodel.sports = false;
+    $scope.divmodel.quiz = false;
+    $scope.divmodel.aquatics = false;
+    $scope.divmodel.dance = false;
+    $scope.dancedisable = true;
+    $scope.quizdisable = true;
+    $scope.aquaticsdisable = true;
+    $scope.sportsdisable = true;
+
+    $scope.user.sports = [];
+    $scope.user.quiz = [];
+    $scope.user.aquatics = [];
+    $scope.user.dance = [];
+    $scope.user.volunteer = [];
+    $scope.checked = [];
+
     NavigationService.getOneUser($routeParams.id, function(data, status) {
-        console.log(data);
         $scope.user = data; //Add More Array
         if (!data.village)
             $scope.user.village = [];
@@ -506,16 +480,25 @@ phonecatControllers.controller('editUserCtrl', function($scope, TemplateService,
         if (!data.volunteers)
             $scope.user.volunteers = [];
         $scope.user.dateofbirth = new Date($scope.user.dateofbirth);
+        if ($scope.user.sports.length > 0) {
+            $scope.divmodel.sports = true;
+            $scope.sportsdisable = false;
+        }
+        if ($scope.user.quiz.length > 0) {
+            $scope.divmodel.quiz = true;
+            $scope.quizdisable = false;
+        }
+        if ($scope.user.dance.length > 0) {
+            $scope.divmodel.dance = true;
+            $scope.dancedisable = false;
+        }
+        if ($scope.user.aquatics.length > 0) {
+            $scope.divmodel.aquatics = true;
+            $scope.aquaticsdisable = false;
+        }
         $scope.user.registrationdate = new Date($scope.user.registrationdate);
-        $scope.user.sports = [null,"Handminton", "Lagori", "Handball"];
     });
     /////////////////////////////
-    $scope.user.sports = [];
-    $scope.user.quiz = [];
-    $scope.user.aquatics = [];
-    $scope.user.dance = [];
-    $scope.user.volunteer = [];
-    $scope.checked = [];
 
     $scope.divs = [{
         name: "div1",
@@ -530,15 +513,6 @@ phonecatControllers.controller('editUserCtrl', function($scope, TemplateService,
         name: "div4",
         value: false
     }];
-    $scope.divmodel = {};
-    $scope.divmodel.sports = false;
-    $scope.divmodel.quiz = false;
-    $scope.divmodel.aquatics = false;
-    $scope.divmodel.dance = false;
-    $scope.dancedisable = true;
-    $scope.quizdisable = true;
-    $scope.aquaticsdisable = true;
-    $scope.sportsdisable = true;
 
     $scope.enableordisable = function(value) {
         checknow();
@@ -583,7 +557,6 @@ phonecatControllers.controller('editUserCtrl', function($scope, TemplateService,
                     $scope.user.aquatics = []
                 } else {
                     $scope.aquaticsdisable = false;
-                    document.getElementById("aqua1").checked = true;
                 }
             }
 
@@ -610,49 +583,6 @@ phonecatControllers.controller('editUserCtrl', function($scope, TemplateService,
                 }
             }
         }
-    };
-
-    $scope.pushorpopsports = function(value) {
-        if ($scope.divmodel.sports != false) {
-            var popindex = $scope.user.sports.indexOf(value);
-            if (popindex == -1)
-                $scope.user.sports.push(value);
-            else
-                $scope.user.sports.splice(popindex, 1);
-        }
-    }
-
-    $scope.pushorpopquiz = function(value) {
-        var popindex = $scope.user.quiz.indexOf(value);
-        if (popindex == -1)
-            $scope.user.quiz.push(value);
-        else {
-            $scope.user.quiz.splice(popindex, 1);
-        }
-    }
-
-    $scope.pushorpopaqua = function(value) {
-        var popindex = $scope.user.aquatics.indexOf(value);
-        if (popindex == -1)
-            $scope.user.aquatics.push(value);
-        else
-            $scope.user.aquatics.splice(popindex, 1);
-    }
-
-    $scope.pushorpopdance = function(value) {
-        var popindex = $scope.user.dance.indexOf(value);
-        if (popindex == -1)
-            $scope.user.dance.push(value);
-        else
-            $scope.user.dance.splice(popindex, 1);
-    }
-
-    $scope.pushorpopvolun = function(value) {
-        var popindex = $scope.user.volunteer.indexOf(value);
-        if (popindex == -1)
-            $scope.user.volunteer.push(value);
-        else
-            $scope.user.volunteer.splice(popindex, 1);
     };
     /////////////////////////////
     $scope.submitForm = function() {

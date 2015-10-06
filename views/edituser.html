@@ -114,10 +114,10 @@
                         <div class="form-group" id="div1">
                             <div class="col-md-3">
                                 <div class="addborder">
-                                    <input type="checkbox" ng-disabled="divs[0].value" ng-click="pushorpopquiz('Quiz');enableordisable('div1');" ng-model="divmodel.quiz">QUIZ
+                                    <input type="checkbox" ng-disabled="divs[0].value" ng-click="enableordisable('div1');" ng-model="divmodel.quiz">QUIZ
                                     <hr class="lesshr">
                                     <div>
-                                        <input type="checkbox" id="quiz1" ng-disabled="quizdisable" ng-click="pushorpopquiz('Quiz');">Quiz
+                                        <input type="checkbox" id="quiz1" ng-disabled="quizdisable">Quiz
                                     </div>
                                 </div>
                             </div>
@@ -125,10 +125,16 @@
                         <div class="form-group" id="div2">
                             <div class="col-md-3">
                                 <div class="addborder">
-                                    <input type="checkbox" ng-disabled="divs[1].value" ng-click="pushorpopaqua('Aquatics');enableordisable('div2');" ng-model="divmodel.aquatics">AQUATICS
+                                    <input type="checkbox" ng-disabled="divs[1].value" ng-click="enableordisable('div2');" ng-model="divmodel.aquatics">OTHER GAMES
                                     <hr class="lesshr">
                                     <div>
-                                        <input type="checkbox" id="aqua1" ng-click="pushorpopaqua('Aquatics');" ng-disabled="aquaticsdisable">Aqautics
+                                        <input type="checkbox" id="aqua1" ng-true-value="'Khatron ke khiladi'" ng-false-value="" ng-model="user.aquatics[0]" ng-disabled="aquaticsdisable">Khatron ke khiladi
+                                    </div>
+                                    <div>
+                                        <input type="checkbox" id="aqua2" ng-true-value="'Musical Stations'" ng-false-value="" ng-model="user.aquatics[1]" ng-disabled="aquaticsdisable">Musical Stations
+                                    </div>
+                                    <div>
+                                        <input type="checkbox" id="aqua3" ng-true-value="'Kho-Kho'" ng-false-value="" ng-model="user.aquatics[2]" ng-disabled="aquaticsdisable">Kho-Kho
                                     </div>
                                 </div>
                             </div>
@@ -139,10 +145,10 @@
                                     <input type="checkbox" ng-disabled="divs[2].value" ng-click="enableordisable('div3');" ng-model="divmodel.dance">DANCE & STREET PLAY
                                     <hr class="lesshr">
                                     <div>
-                                        <input type="checkbox" id="dance1" ng-disabled="dancedisable" ng-click="pushorpopdance('Dance');">Dance
+                                        <input type="checkbox" id="dance1" ng-true-value="'Dance'" ng-false-value="" ng-model="user.dance[0]" ng-disabled="dancedisable">Dance
                                     </div>
                                     <div>
-                                        <input type="checkbox" id="dance2" ng-disabled="dancedisable" ng-click="pushorpopdance('Street Play');">Street Play
+                                        <input type="checkbox" id="dance2" ng-true-value="'Street Play'" ng-false-value="" ng-model="user.dance[1]" ng-disabled="dancedisable">Street Play
                                     </div>
                                 </div>
                             </div>
@@ -153,7 +159,7 @@
                                     <input type="checkbox" ng-disabled="divs[3].value" ng-click="enableordisable('div4');" ng-model="divmodel.sports">TEAM GAMES & ATHLETICS
                                     <hr class="lesshr">
                                     <div ng-repeat="sports in allsports">
-                                        <input type="checkbox" ng-true-value="'{{sports}}'" ng-false-value="" ng-model="user.sports[$index]" ng-disabled="sportsdisable">{{sports}}
+                                        <input type="checkbox" id="{{sports+$index}}" ng-true-value="'{{sports}}'" ng-false-value="" ng-model="user.sports[$index]" ng-disabled="sportsdisable">{{sports}}
                                     </div>
                                 </div>
                             </div>
@@ -163,16 +169,16 @@
                         </div>
                         <div class="col-md-12" style="padding:20px 0;">
                             <div class="col-md-3">
-                                <input type="checkbox" ng-click="pushorpopvolun('Banner Desigining / Art Work');">Banner Desigining / Art Work
+                                <input type="checkbox" ng-true-value="'Banner Desigining / Art Work'" ng-false-value="" ng-model="user.volunteer[0]">Banner Desigining / Art Work
                             </div>
                             <div class="col-md-3">
-                                <input type="checkbox" ng-click="pushorpopvolun('Slogan And Other Write UPS');">Slogan And Other Write UPS
+                                <input type="checkbox" ng-true-value="'Slogan And Other Write UPS'" ng-false-value="" ng-model="user.volunteer[1]">Slogan And Other Write UPS
                             </div>
                             <div class="col-md-3">
-                                <input type="checkbox" ng-click="pushorpopvolun('Cycling');">Cycling
+                                <input type="checkbox" ng-true-value="'Cycling'" ng-false-value="" ng-model="user.volunteer[2]">Cycling
                             </div>
                             <div class="col-md-3">
-                                <input type="checkbox" ng-click="pushorpopvolun('Volunteer');">Volunteer
+                                <input type="checkbox" ng-true-value="'Volunteer'" ng-false-value="" ng-model="user.volunteer[3]">Volunteer
                             </div>
                         </div>
                         <!--Add New Tags-->
