@@ -218,6 +218,8 @@ phonecatControllers.controller('createUserCtrl', function($scope, TemplateServic
     $scope.user.dance = [];
     $scope.user.volunteer = [];
     $scope.checked = [];
+    $scope.sportsflag = "";
+
     $scope.divs = [{
         name: "div1",
         vlaue: false
@@ -505,6 +507,7 @@ phonecatControllers.controller('editUserCtrl', function($scope, TemplateService,
             $scope.user.volunteers = [];
         $scope.user.dateofbirth = new Date($scope.user.dateofbirth);
         $scope.user.registrationdate = new Date($scope.user.registrationdate);
+        $scope.user.sports = [null,"Handminton", "Lagori", "Handball"];
     });
     /////////////////////////////
     $scope.user.sports = [];
@@ -513,6 +516,7 @@ phonecatControllers.controller('editUserCtrl', function($scope, TemplateService,
     $scope.user.dance = [];
     $scope.user.volunteer = [];
     $scope.checked = [];
+
     $scope.divs = [{
         name: "div1",
         vlaue: false

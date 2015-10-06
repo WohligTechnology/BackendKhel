@@ -153,7 +153,7 @@
                                     <input type="checkbox" ng-disabled="divs[3].value" ng-click="enableordisable('div4');" ng-model="divmodel.sports">TEAM GAMES & ATHLETICS
                                     <hr class="lesshr">
                                     <div ng-repeat="sports in allsports">
-                                        <input type="checkbox" id="{{sports+$index}}" ng-click="pushorpopsports(sports)" ng-disabled="sportsdisable">{{sports}}
+                                        <input type="checkbox" ng-true-value="'{{sports}}'" ng-false-value="" ng-model="user.sports[$index]" ng-disabled="sportsdisable">{{sports}}
                                     </div>
                                 </div>
                             </div>
