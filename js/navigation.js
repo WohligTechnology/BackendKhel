@@ -43,6 +43,11 @@ var navigationservice = angular.module('navigationservice', [])
             link: '#/notification',
             subnav: []
         }, {
+            name: 'Slider',
+            active: '',
+            link: '#/slider',
+            subnav: []
+        }, {
             name: 'Sponsors',
             active: '',
             link: '#/sponsors',
@@ -364,6 +369,42 @@ var navigationservice = angular.module('navigationservice', [])
         saveNews: function(data, callback) {
             $http({
                 url: adminurl + 'news/save',
+                method: 'POST',
+                data: data
+            }).success(callback);
+        },
+        getOneSlider: function(id, callback) {
+            $http({
+                url: adminurl + 'slider/findone',
+                method: 'POST',
+                data: {
+                    '_id': id
+                }
+            }).success(callback);
+        },
+        findLimitedSlider: function(slider, callback) {
+            $http({
+                url: adminurl + 'slider/findlimited',
+                method: 'POST',
+                data: {
+                    'search': slider.search,
+                    'pagesize': parseInt(slider.limit),
+                    'pagenumber': parseInt(slider.page)
+                }
+            }).success(callback);
+        },
+        deleteSlider: function(callback) {
+            $http({
+                url: adminurl + 'slider/delete',
+                method: 'POST',
+                data: {
+                    '_id': $.jStorage.get('deleteslider')
+                }
+            }).success(callback);
+        },
+        saveSlider: function(data, callback) {
+            $http({
+                url: adminurl + 'slider/save',
                 method: 'POST',
                 data: data
             }).success(callback);

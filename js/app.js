@@ -1,13 +1,13 @@
 // JavaScript Document
 var firstapp = angular.module('firstapp', [
-  'ngRoute',
-  'phonecatControllers',
-  'templateservicemod',
-  'navigationservice'
+    'ngRoute',
+    'phonecatControllers',
+    'templateservicemod',
+    'navigationservice'
 ]);
 
 firstapp.config(
-    function ($routeProvider, uiSelectConfig) {
+    function($routeProvider, uiSelectConfig) {
 
         //        uiSelectConfig.theme = 'bootstrap';
         //        uiSelectConfig.resetSearchInput = true;
@@ -68,6 +68,15 @@ firstapp.config(
             }).when('/editnews/:id', {
                 templateUrl: 'views/template.html',
                 controller: 'editNewsCtrl'
+            }).when('/slider', {
+                templateUrl: 'views/template.html',
+                controller: 'SliderCtrl'
+            }).when('/createslider', {
+                templateUrl: 'views/template.html',
+                controller: 'createSliderCtrl'
+            }).when('/editslider/:id', {
+                templateUrl: 'views/template.html',
+                controller: 'editSliderCtrl'
             }).when('/notification', {
                 templateUrl: 'views/template.html',
                 controller: 'NotificationCtrl'
@@ -101,13 +110,13 @@ firstapp.config(
             redirectTo: '/login'
         });
     });
-firstapp.filter('uploadpath', function () {
-    return function (input) {
-        return adminurl + "user/resize?file=" + input;
+firstapp.filter('uploadpath', function() {
+    return function(input) {
+        return adminurl + "uploadfile/resize?file=" + input;
     };
 });
 
-firstapp.directive('array', function () {
+firstapp.directive('array', function() {
     return {
         restrict: 'EA',
         scope: {
@@ -117,7 +126,7 @@ firstapp.directive('array', function () {
         },
         replace: false,
         templateUrl: "views/directive/array.html",
-        link: function ($scope, element, attr) {
+        link: function($scope, element, attr) {
             var GalleryStructure = $scope.GalleryStructure;
             var EditVal = $scope.EditVal;
             $scope.label = attr.label;
@@ -127,13 +136,13 @@ firstapp.directive('array', function () {
             $scope.GalleryStrucObj.valuesOf = [];
             $scope.GalleryStrucObj.valuesOf = EditVal;
             $scope.GalleryStrucObj.nullObj = {};
-            _.each($scope.GalleryStrucObj.keyOf, function (n, key) {
+            _.each($scope.GalleryStrucObj.keyOf, function(n, key) {
                 $scope.GalleryStrucObj.nullObj[n] = "";
             });
-            $scope.GalleryStrucObj.add = function () {
+            $scope.GalleryStrucObj.add = function() {
                 $scope.GalleryStrucObj.valuesOf.push(_.clone($scope.GalleryStrucObj.nullObj, true));
             };
-            $scope.GalleryStrucObj.remove = function (obj) {
+            $scope.GalleryStrucObj.remove = function(obj) {
                 var objkey = _.remove($scope.GalleryStrucObj.valuesOf, obj);
             };
             $scope.EditVal = $scope.GalleryStrucObj.valuesOf;
@@ -141,14 +150,14 @@ firstapp.directive('array', function () {
     }
 });
 
-firstapp.directive('createovalidation', function () {
+firstapp.directive('createovalidation', function() {
     return {
         restrict: 'EA',
         replace: false,
-        link: function ($scope, element, attr) {
+        link: function($scope, element, attr) {
             $element = $(element);
             var validation = $scope[attr.createovalidation].structure[attr.objkey].validation;
-            _.each(validation, function (n) {
+            _.each(validation, function(n) {
                 var m = n.split("=");
                 if (!m[1]) {
                     m[1] = "";
@@ -160,11 +169,11 @@ firstapp.directive('createovalidation', function () {
 });
 
 
-firstapp.directive('capitalizeFirst', function ($parse) {
+firstapp.directive('capitalizeFirst', function($parse) {
     return {
         require: 'ngModel',
-        link: function (scope, element, attrs, modelCtrl) {
-            var capitalize = function (inputValue) {
+        link: function(scope, element, attrs, modelCtrl) {
+            var capitalize = function(inputValue) {
                 if (inputValue === undefined) {
                     inputValue = '';
                 }
@@ -181,42 +190,8 @@ firstapp.directive('capitalizeFirst', function ($parse) {
         }
     };
 });
-firstapp.filter('touppercase', function () {
-    return function (input) {
-        var firstletter = input.substr(0, 1);
-        var remaining = input.substr(1);
-        return firstletter.toUpperCase() + remaining;
-    };
-})
-
-firstapp.filter('uploadpath', function () {
-    return function (input) {
-        return adminurl + "user/resize?file=" + input;
-    };
-});
-firstapp.directive('capitalizeFirst', function ($parse) {
-    return {
-        require: 'ngModel',
-        link: function (scope, element, attrs, modelCtrl) {
-            var capitalize = function (inputValue) {
-                if (inputValue === undefined) {
-                    inputValue = '';
-                }
-                var capitalized = inputValue.charAt(0).toUpperCase() +
-                    inputValue.substring(1);
-                if (capitalized !== inputValue) {
-                    modelCtrl.$setViewValue(capitalized);
-                    modelCtrl.$render();
-                }
-                return capitalized;
-            }
-            modelCtrl.$parsers.push(capitalize);
-            capitalize($parse(attrs.ngModel)(scope)); // capitalize initial value
-        }
-    };
-});
-firstapp.filter('touppercase', function () {
-    return function (input) {
+firstapp.filter('touppercase', function() {
+    return function(input) {
         var firstletter = input.substr(0, 1);
         var remaining = input.substr(1);
         return firstletter.toUpperCase() + remaining;
