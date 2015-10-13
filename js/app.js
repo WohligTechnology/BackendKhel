@@ -74,6 +74,9 @@ firstapp.config(
             }).when('/createslider', {
                 templateUrl: 'views/template.html',
                 controller: 'createSliderCtrl'
+            }).when('/editslider/:id', {
+                templateUrl: 'views/template.html',
+                controller: 'editSliderCtrl'
             }).when('/folder', {
                 templateUrl: 'views/template.html',
                 controller: 'FolderCtrl'

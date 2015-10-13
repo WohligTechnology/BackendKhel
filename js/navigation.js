@@ -1,5 +1,5 @@
 // var adminurl = "http://localhost:1337/";
-var adminurl = "http://192.168.2.22:1337/";
+var adminurl = "http://wohlig.com:81/";
 var adminlogin = {
     "username": "admin@admin.com",
     "password": "admin123"

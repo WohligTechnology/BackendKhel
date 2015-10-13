@@ -2,7 +2,7 @@ var uploadres = [];
 var selectedData = [];
 var abc = {};
 var phonecatControllers = angular.module('phonecatControllers', ['templateservicemod', 'navigationservice', 'ngDialog', 'angularFileUpload', 'ui.select', 'ngSanitize']);
-window.uploadUrl = 'http://192.168.2.22:1337/uploadfile/uploadfile';
+window.uploadUrl = 'http://wohlig.com:81/uploadfile/uploadfile';
 phonecatControllers.controller('home', function($scope, TemplateService, NavigationService, $routeParams, $location) {
     $scope.template = TemplateService;
     $scope.menutitle = NavigationService.makeactive("Dashboard");
@@ -1350,7 +1350,7 @@ phonecatControllers.controller('createSliderCtrl', function($scope, TemplateServ
         $scope.slider.image.splice(i, 1);
     };
 
-    var uploadedimage = "";
+    var imagejstupld = "";
     $scope.slider.image = [];
     $scope.usingFlash = FileAPI && FileAPI.upload != null;
     $scope.fileReaderSupported = window.FileReader != null && (window.FileAPI == null || FileAPI.html5 != false);
@@ -1368,9 +1368,10 @@ phonecatControllers.controller('createSliderCtrl', function($scope, TemplateServ
     };
     $scope.angularVersion = window.location.hash.length > 1 ? (window.location.hash.indexOf('/') === 1 ?
         window.location.hash.substring(2) : window.location.hash.substring(1)) : '1.2.20';
-    $scope.onFileSelect = function($files, whichone) {
+    $scope.onFileSelect = function($files) {
         $scope.selectedFiles = [];
         $scope.progress = [];
+        console.log($files);
         if ($scope.upload && $scope.upload.length > 0) {
             for (var i = 0; i < $scope.upload.length; i++) {
                 if ($scope.upload[i] != null) {
@@ -1397,14 +1398,15 @@ phonecatControllers.controller('createSliderCtrl', function($scope, TemplateServ
             }
             $scope.progress[i] = -1;
             if ($scope.uploadRightAway) {
-                $scope.start(i, whichone);
+                $scope.start(i);
             }
         }
     };
 
-    $scope.start = function(index, whichone) {
+    $scope.start = function(index) {
         $scope.progress[index] = 0;
         $scope.errorMsg = null;
+        console.log($scope.howToSend = 1);
         if ($scope.howToSend == 1) {
             $scope.upload[index] = $upload.upload({
                 url: uploadUrl,
@@ -1421,9 +1423,9 @@ phonecatControllers.controller('createSliderCtrl', function($scope, TemplateServ
             $scope.upload[index].then(function(response) {
                 $timeout(function() {
                     $scope.uploadResult.push(response.data);
-                    uploadedimage = response.data;
-                    if (uploadedimage != "") {
-                        $scope.slider.image.push(uploadedimage.files[0].fd);
+                    imagejstupld = response.data;
+                    if (imagejstupld != "") {
+                        $scope.slider.image.push(imagejstupld.files[0].fd);
                     }
                 });
             }, function(response) {
@@ -1492,7 +1494,7 @@ phonecatControllers.controller('editSliderCtrl', function($scope, TemplateServic
         $scope.slider.image.splice(i, 1);
     };
 
-    var uploadedimage = "";
+    var imagejstupld = "";
     $scope.usingFlash = FileAPI && FileAPI.upload != null;
     $scope.fileReaderSupported = window.FileReader != null && (window.FileAPI == null || FileAPI.html5 != false);
     $scope.uploadRightAway = true;
@@ -1509,9 +1511,10 @@ phonecatControllers.controller('editSliderCtrl', function($scope, TemplateServic
     };
     $scope.angularVersion = window.location.hash.length > 1 ? (window.location.hash.indexOf('/') === 1 ?
         window.location.hash.substring(2) : window.location.hash.substring(1)) : '1.2.20';
-    $scope.onFileSelect = function($files, whichone) {
+    $scope.onFileSelect = function($files) {
         $scope.selectedFiles = [];
         $scope.progress = [];
+        console.log($files);
         if ($scope.upload && $scope.upload.length > 0) {
             for (var i = 0; i < $scope.upload.length; i++) {
                 if ($scope.upload[i] != null) {
@@ -1538,14 +1541,15 @@ phonecatControllers.controller('editSliderCtrl', function($scope, TemplateServic
             }
             $scope.progress[i] = -1;
             if ($scope.uploadRightAway) {
-                $scope.start(i, whichone);
+                $scope.start(i);
             }
         }
     };
 
-    $scope.start = function(index, whichone) {
+    $scope.start = function(index) {
         $scope.progress[index] = 0;
         $scope.errorMsg = null;
+        console.log($scope.howToSend = 1);
         if ($scope.howToSend == 1) {
             $scope.upload[index] = $upload.upload({
                 url: uploadUrl,
@@ -1562,9 +1566,9 @@ phonecatControllers.controller('editSliderCtrl', function($scope, TemplateServic
             $scope.upload[index].then(function(response) {
                 $timeout(function() {
                     $scope.uploadResult.push(response.data);
-                    uploadedimage = response.data;
-                    if (uploadedimage != "") {
-                        $scope.slider.image.push(uploadedimage.files[0].fd);
+                    imagejstupld = response.data;
+                    if (imagejstupld != "") {
+                        $scope.slider.image.push(imagejstupld.files[0].fd);
                     }
                 });
             }, function(response) {
@@ -1689,7 +1693,7 @@ phonecatControllers.controller('createFolderCtrl', function($scope, TemplateServ
         $scope.folder.image.splice(i, 1);
     };
 
-    var uploadedimage = "";
+    var imagejstupld = "";
     $scope.folder.image = [];
     $scope.usingFlash = FileAPI && FileAPI.upload != null;
     $scope.fileReaderSupported = window.FileReader != null && (window.FileAPI == null || FileAPI.html5 != false);
@@ -1707,9 +1711,10 @@ phonecatControllers.controller('createFolderCtrl', function($scope, TemplateServ
     };
     $scope.angularVersion = window.location.hash.length > 1 ? (window.location.hash.indexOf('/') === 1 ?
         window.location.hash.substring(2) : window.location.hash.substring(1)) : '1.2.20';
-    $scope.onFileSelect = function($files, whichone) {
+    $scope.onFileSelect = function($files) {
         $scope.selectedFiles = [];
         $scope.progress = [];
+        console.log($files);
         if ($scope.upload && $scope.upload.length > 0) {
             for (var i = 0; i < $scope.upload.length; i++) {
                 if ($scope.upload[i] != null) {
@@ -1736,14 +1741,15 @@ phonecatControllers.controller('createFolderCtrl', function($scope, TemplateServ
             }
             $scope.progress[i] = -1;
             if ($scope.uploadRightAway) {
-                $scope.start(i, whichone);
+                $scope.start(i);
             }
         }
     };
 
-    $scope.start = function(index, whichone) {
+    $scope.start = function(index) {
         $scope.progress[index] = 0;
         $scope.errorMsg = null;
+        console.log($scope.howToSend = 1);
         if ($scope.howToSend == 1) {
             $scope.upload[index] = $upload.upload({
                 url: uploadUrl,
@@ -1760,9 +1766,9 @@ phonecatControllers.controller('createFolderCtrl', function($scope, TemplateServ
             $scope.upload[index].then(function(response) {
                 $timeout(function() {
                     $scope.uploadResult.push(response.data);
-                    uploadedimage = response.data;
-                    if (uploadedimage != "") {
-                        $scope.folder.image.push(uploadedimage.files[0].fd);
+                    imagejstupld = response.data;
+                    if (imagejstupld != "") {
+                        $scope.folder.image.push(imagejstupld.files[0].fd);
                     }
                 });
             }, function(response) {
@@ -1831,7 +1837,7 @@ phonecatControllers.controller('editFolderCtrl', function($scope, TemplateServic
         $scope.folder.image.splice(i, 1);
     };
 
-    var uploadedimage = "";
+    var imagejstupld = "";
     $scope.usingFlash = FileAPI && FileAPI.upload != null;
     $scope.fileReaderSupported = window.FileReader != null && (window.FileAPI == null || FileAPI.html5 != false);
     $scope.uploadRightAway = true;
@@ -1848,9 +1854,10 @@ phonecatControllers.controller('editFolderCtrl', function($scope, TemplateServic
     };
     $scope.angularVersion = window.location.hash.length > 1 ? (window.location.hash.indexOf('/') === 1 ?
         window.location.hash.substring(2) : window.location.hash.substring(1)) : '1.2.20';
-    $scope.onFileSelect = function($files, whichone) {
+    $scope.onFileSelect = function($files) {
         $scope.selectedFiles = [];
         $scope.progress = [];
+        console.log($files);
         if ($scope.upload && $scope.upload.length > 0) {
             for (var i = 0; i < $scope.upload.length; i++) {
                 if ($scope.upload[i] != null) {
@@ -1877,14 +1884,15 @@ phonecatControllers.controller('editFolderCtrl', function($scope, TemplateServic
             }
             $scope.progress[i] = -1;
             if ($scope.uploadRightAway) {
-                $scope.start(i, whichone);
+                $scope.start(i);
             }
         }
     };
 
-    $scope.start = function(index, whichone) {
+    $scope.start = function(index) {
         $scope.progress[index] = 0;
         $scope.errorMsg = null;
+        console.log($scope.howToSend = 1);
         if ($scope.howToSend == 1) {
             $scope.upload[index] = $upload.upload({
                 url: uploadUrl,
@@ -1901,9 +1909,9 @@ phonecatControllers.controller('editFolderCtrl', function($scope, TemplateServic
             $scope.upload[index].then(function(response) {
                 $timeout(function() {
                     $scope.uploadResult.push(response.data);
-                    uploadedimage = response.data;
-                    if (uploadedimage != "") {
-                        $scope.folder.image.push(uploadedimage.files[0].fd);
+                    imagejstupld = response.data;
+                    if (imagejstupld != "") {
+                        $scope.folder.image.push(imagejstupld.files[0].fd);
                     }
                 });
             }, function(response) {
