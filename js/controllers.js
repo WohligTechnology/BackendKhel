@@ -904,21 +904,6 @@ phonecatControllers.controller('createTeamCtrl', function($scope, TemplateServic
         "type": "number"
     }];
 
-    $scope.team.gallery = [];
-    $scope.GalleryStructure = [{
-        "name": "Name",
-        "type": "text"
-    }, {
-        "name": "Type",
-        "type": "select"
-    }, {
-        "name": "Url",
-        "type": "text"
-    }, {
-        "name": "IsModerated",
-        "type": "select"
-    }];
-
     $scope.team.player = [];
 
     $scope.team.pointslogs = [];
@@ -950,9 +935,6 @@ phonecatControllers.controller('editTeamCtrl', function($scope, TemplateService,
         if (!$scope.team.pincode) {
             $scope.team.pincode = [];
         }
-        if (!$scope.team.gallery) {
-            $scope.team.gallery = [];
-        }
         if (!$scope.team.player) {
             $scope.team.player = [];
         }
@@ -967,24 +949,11 @@ phonecatControllers.controller('editTeamCtrl', function($scope, TemplateService,
         });
     };
     $scope.PincodeStructure = [{
-        "name": "Area",
+        "name": "area",
         "type": "text"
     }, {
-        "name": "Pincode",
+        "name": "pincode",
         "type": "text"
-    }];
-    $scope.GalleryStructure = [{
-        "name": "Name",
-        "type": "text"
-    }, {
-        "name": "Type",
-        "type": "select"
-    }, {
-        "name": "Url",
-        "type": "text"
-    }, {
-        "name": "IsModerated",
-        "type": "select"
     }];
     $scope.PlayerStructure = [{
         "name": "Name",
@@ -1322,7 +1291,7 @@ phonecatControllers.controller('SliderCtrl', function($scope, TemplateService, N
     TemplateService.content = 'views/slider.html';
     TemplateService.list = 2;
     $scope.navigation = NavigationService.getnav();
-    $scope.news = [];
+    $scope.slider = [];
     $scope.pagedata = {};
     $scope.pagedata.page = 1;
     $scope.pagedata.limit = '20';
@@ -1402,7 +1371,6 @@ phonecatControllers.controller('createSliderCtrl', function($scope, TemplateServ
     $scope.onFileSelect = function($files, whichone) {
         $scope.selectedFiles = [];
         $scope.progress = [];
-        console.log($files);
         if ($scope.upload && $scope.upload.length > 0) {
             for (var i = 0; i < $scope.upload.length; i++) {
                 if ($scope.upload[i] != null) {
@@ -1437,7 +1405,6 @@ phonecatControllers.controller('createSliderCtrl', function($scope, TemplateServ
     $scope.start = function(index, whichone) {
         $scope.progress[index] = 0;
         $scope.errorMsg = null;
-        console.log($scope.howToSend = 1);
         if ($scope.howToSend == 1) {
             $scope.upload[index] = $upload.upload({
                 url: uploadUrl,
@@ -1545,7 +1512,6 @@ phonecatControllers.controller('editSliderCtrl', function($scope, TemplateServic
     $scope.onFileSelect = function($files, whichone) {
         $scope.selectedFiles = [];
         $scope.progress = [];
-        console.log($files);
         if ($scope.upload && $scope.upload.length > 0) {
             for (var i = 0; i < $scope.upload.length; i++) {
                 if ($scope.upload[i] != null) {
@@ -1580,7 +1546,6 @@ phonecatControllers.controller('editSliderCtrl', function($scope, TemplateServic
     $scope.start = function(index, whichone) {
         $scope.progress[index] = 0;
         $scope.errorMsg = null;
-        console.log($scope.howToSend = 1);
         if ($scope.howToSend == 1) {
             $scope.upload[index] = $upload.upload({
                 url: uploadUrl,
@@ -1657,6 +1622,345 @@ phonecatControllers.controller('editSliderCtrl', function($scope, TemplateServic
     //editSlider
 });
 //editSlider Controller
+//Folder Controller
+phonecatControllers.controller('FolderCtrl', function($scope, TemplateService, NavigationService, $routeParams, $location, ngDialog) {
+    $scope.template = TemplateService;
+    $scope.menutitle = NavigationService.makeactive('Folder');
+    TemplateService.title = $scope.menutitle;
+    TemplateService.submenu = '';
+    TemplateService.content = 'views/folder.html';
+    TemplateService.list = 2;
+    $scope.navigation = NavigationService.getnav();
+    $scope.folder = [];
+    $scope.pagedata = {};
+    $scope.pagedata.page = 1;
+    $scope.pagedata.limit = '20';
+    $scope.pagedata.search = '';
+    $scope.number = 100;
+    $scope.reload = function(pagedata) {
+        $scope.pagedata = pagedata;
+        NavigationService.findLimitedFolder($scope.pagedata, function(data, status) {
+            $scope.folder = data;
+            $scope.pages = [];
+            var newclass = '';
+            for (var i = 1; i <= data.totalpages; i++) {
+                if (pagedata.page == i) {
+                    newclass = 'active';
+                } else {
+                    newclass = '';
+                }
+                $scope.pages.push({
+                    pageno: i,
+                    class: newclass
+                });
+            }
+        });
+    }
+    $scope.reload($scope.pagedata);
+    $scope.confDelete = function() {
+        NavigationService.deleteFolder(function(data, status) {
+            ngDialog.close();
+            window.location.reload();
+        });
+    }
+    $scope.deletefun = function(id) {
+        $.jStorage.set('deletefolder', id);
+        ngDialog.open({
+            template: 'views/delete.html',
+            closeByEscape: false,
+            controller: 'FolderCtrl',
+            closeByDocument: false
+        });
+    }
+});
+//folder Controller
+//createFolder Controller
+phonecatControllers.controller('createFolderCtrl', function($scope, TemplateService, NavigationService, $routeParams, $location, ngDialog, $upload, $timeout) {
+    $scope.template = TemplateService;
+    $scope.menutitle = NavigationService.makeactive('Folder');
+    TemplateService.title = $scope.menutitle;
+    TemplateService.submenu = '';
+    TemplateService.content = 'views/createfolder.html';
+    TemplateService.list = 2;
+    $scope.navigation = NavigationService.getnav();
+    $scope.folder = {};
+
+    $scope.removeimage = function(i) {
+        $scope.folder.image.splice(i, 1);
+    };
+
+    var uploadedimage = "";
+    $scope.folder.image = [];
+    $scope.usingFlash = FileAPI && FileAPI.upload != null;
+    $scope.fileReaderSupported = window.FileReader != null && (window.FileAPI == null || FileAPI.html5 != false);
+    $scope.uploadRightAway = true;
+    $scope.changeAngularVersion = function() {
+        window.location.hash = $scope.angularVersion;
+        window.location.reload(true);
+    };
+    $scope.hasUploader = function(index) {
+        return $scope.upload[index] != null;
+    };
+    $scope.abort = function(index) {
+        $scope.upload[index].abort();
+        $scope.upload[index] = null;
+    };
+    $scope.angularVersion = window.location.hash.length > 1 ? (window.location.hash.indexOf('/') === 1 ?
+        window.location.hash.substring(2) : window.location.hash.substring(1)) : '1.2.20';
+    $scope.onFileSelect = function($files, whichone) {
+        $scope.selectedFiles = [];
+        $scope.progress = [];
+        if ($scope.upload && $scope.upload.length > 0) {
+            for (var i = 0; i < $scope.upload.length; i++) {
+                if ($scope.upload[i] != null) {
+                    $scope.upload[i].abort();
+                }
+            }
+        }
+        $scope.upload = [];
+        $scope.uploadResult = uploadres;
+        $scope.selectedFiles = $files;
+        $scope.dataUrls = [];
+        for (var i = 0; i < $files.length; i++) {
+            var $file = $files[i];
+            if ($scope.fileReaderSupported && $file.type.indexOf('image') > -1) {
+                var fileReader = new FileReader();
+                fileReader.readAsDataURL($files[i]);
+                var loadFile = function(fileReader, index) {
+                    fileReader.onload = function(e) {
+                        $timeout(function() {
+                            $scope.dataUrls[index] = e.target.result;
+                        });
+                    }
+                }(fileReader, i);
+            }
+            $scope.progress[i] = -1;
+            if ($scope.uploadRightAway) {
+                $scope.start(i, whichone);
+            }
+        }
+    };
+
+    $scope.start = function(index, whichone) {
+        $scope.progress[index] = 0;
+        $scope.errorMsg = null;
+        if ($scope.howToSend == 1) {
+            $scope.upload[index] = $upload.upload({
+                url: uploadUrl,
+                method: $scope.httpMethod,
+                headers: {
+                    'Content-Type': 'Content-Type'
+                },
+                data: {
+                    myModel: $scope.myModel
+                },
+                file: $scope.selectedFiles[index],
+                fileFormDataName: 'file'
+            });
+            $scope.upload[index].then(function(response) {
+                $timeout(function() {
+                    $scope.uploadResult.push(response.data);
+                    uploadedimage = response.data;
+                    if (uploadedimage != "") {
+                        $scope.folder.image.push(uploadedimage.files[0].fd);
+                    }
+                });
+            }, function(response) {
+                if (response.status > 0) $scope.errorMsg = response.status + ': ' + response.data;
+            }, function(evt) {
+                $scope.progress[index] = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+            });
+            $scope.upload[index].xhr(function(xhr) {});
+        } else {
+            var fileReader = new FileReader();
+            fileReader.onload = function(e) {
+                $scope.upload[index] = $upload.http({
+                    url: uploadUrl,
+                    headers: {
+                        'Content-Type': $scope.selectedFiles[index].type
+                    },
+                    data: e.target.result
+                }).then(function(response) {
+                    $scope.uploadResult.push(response.data);
+                }, function(response) {
+                    if (response.status > 0) $scope.errorMsg = response.status + ': ' + response.data;
+                }, function(evt) {
+                    $scope.progress[index] = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+                });
+            }
+            fileReader.readAsArrayBuffer($scope.selectedFiles[index]);
+        }
+    };
+
+    $scope.dragOverClass = function($event) {
+        var items = $event.dataTransfer.items;
+        var hasFile = false;
+        if (items != null) {
+            for (var i = 0; i < items.length; i++) {
+                if (items[i].kind == 'file') {
+                    hasFile = true;
+                    break;
+                }
+            }
+        } else {
+            hasFile = true;
+        }
+        return hasFile ? "dragover" : "dragover-err";
+    };
+
+    $scope.submitForm = function() {
+        NavigationService.saveFolder($scope.folder, function(data, status) {
+            $location.url('/folder');
+        });
+    };
+    //createSlider
+});
+//createFolder Controller
+//editFolder Controller
+phonecatControllers.controller('editFolderCtrl', function($scope, TemplateService, NavigationService, $routeParams, $location, ngDialog, $upload, $timeout) {
+    $scope.template = TemplateService;
+    $scope.menutitle = NavigationService.makeactive('Folder');
+    TemplateService.title = $scope.menutitle;
+    TemplateService.submenu = '';
+    TemplateService.content = 'views/editfolder.html';
+    TemplateService.list = 2;
+    $scope.navigation = NavigationService.getnav();
+    $scope.folder = {};
+
+    $scope.removeimage = function(i) {
+        $scope.folder.image.splice(i, 1);
+    };
+
+    var uploadedimage = "";
+    $scope.usingFlash = FileAPI && FileAPI.upload != null;
+    $scope.fileReaderSupported = window.FileReader != null && (window.FileAPI == null || FileAPI.html5 != false);
+    $scope.uploadRightAway = true;
+    $scope.changeAngularVersion = function() {
+        window.location.hash = $scope.angularVersion;
+        window.location.reload(true);
+    };
+    $scope.hasUploader = function(index) {
+        return $scope.upload[index] != null;
+    };
+    $scope.abort = function(index) {
+        $scope.upload[index].abort();
+        $scope.upload[index] = null;
+    };
+    $scope.angularVersion = window.location.hash.length > 1 ? (window.location.hash.indexOf('/') === 1 ?
+        window.location.hash.substring(2) : window.location.hash.substring(1)) : '1.2.20';
+    $scope.onFileSelect = function($files, whichone) {
+        $scope.selectedFiles = [];
+        $scope.progress = [];
+        if ($scope.upload && $scope.upload.length > 0) {
+            for (var i = 0; i < $scope.upload.length; i++) {
+                if ($scope.upload[i] != null) {
+                    $scope.upload[i].abort();
+                }
+            }
+        }
+        $scope.upload = [];
+        $scope.uploadResult = uploadres;
+        $scope.selectedFiles = $files;
+        $scope.dataUrls = [];
+        for (var i = 0; i < $files.length; i++) {
+            var $file = $files[i];
+            if ($scope.fileReaderSupported && $file.type.indexOf('image') > -1) {
+                var fileReader = new FileReader();
+                fileReader.readAsDataURL($files[i]);
+                var loadFile = function(fileReader, index) {
+                    fileReader.onload = function(e) {
+                        $timeout(function() {
+                            $scope.dataUrls[index] = e.target.result;
+                        });
+                    }
+                }(fileReader, i);
+            }
+            $scope.progress[i] = -1;
+            if ($scope.uploadRightAway) {
+                $scope.start(i, whichone);
+            }
+        }
+    };
+
+    $scope.start = function(index, whichone) {
+        $scope.progress[index] = 0;
+        $scope.errorMsg = null;
+        if ($scope.howToSend == 1) {
+            $scope.upload[index] = $upload.upload({
+                url: uploadUrl,
+                method: $scope.httpMethod,
+                headers: {
+                    'Content-Type': 'Content-Type'
+                },
+                data: {
+                    myModel: $scope.myModel
+                },
+                file: $scope.selectedFiles[index],
+                fileFormDataName: 'file'
+            });
+            $scope.upload[index].then(function(response) {
+                $timeout(function() {
+                    $scope.uploadResult.push(response.data);
+                    uploadedimage = response.data;
+                    if (uploadedimage != "") {
+                        $scope.folder.image.push(uploadedimage.files[0].fd);
+                    }
+                });
+            }, function(response) {
+                if (response.status > 0) $scope.errorMsg = response.status + ': ' + response.data;
+            }, function(evt) {
+                $scope.progress[index] = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+            });
+            $scope.upload[index].xhr(function(xhr) {});
+        } else {
+            var fileReader = new FileReader();
+            fileReader.onload = function(e) {
+                $scope.upload[index] = $upload.http({
+                    url: uploadUrl,
+                    headers: {
+                        'Content-Type': $scope.selectedFiles[index].type
+                    },
+                    data: e.target.result
+                }).then(function(response) {
+                    $scope.uploadResult.push(response.data);
+                }, function(response) {
+                    if (response.status > 0) $scope.errorMsg = response.status + ': ' + response.data;
+                }, function(evt) {
+                    $scope.progress[index] = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+                });
+            }
+            fileReader.readAsArrayBuffer($scope.selectedFiles[index]);
+        }
+    };
+
+    $scope.dragOverClass = function($event) {
+        var items = $event.dataTransfer.items;
+        var hasFile = false;
+        if (items != null) {
+            for (var i = 0; i < items.length; i++) {
+                if (items[i].kind == 'file') {
+                    hasFile = true;
+                    break;
+                }
+            }
+        } else {
+            hasFile = true;
+        }
+        return hasFile ? "dragover" : "dragover-err";
+    };
+
+    NavigationService.getOneFolder($routeParams.id, function(data, status) {
+        $scope.folder = data; //Add More Array
+    });
+    $scope.submitForm = function() {
+        $scope.folder._id = $routeParams.id;
+        NavigationService.saveFolder($scope.folder, function(data, status) {
+            $location.url('/folder');
+        });
+    };
+    //editSlider
+});
+//editFolder Controller
 //Notification Controller
 phonecatControllers.controller('NotificationCtrl', function($scope, TemplateService, NavigationService, $routeParams, $location, ngDialog) {
     $scope.template = TemplateService;
@@ -1746,7 +2050,6 @@ phonecatControllers.controller('createNotificationCtrl', function($scope, Templa
     $scope.onFileSelect = function($files, whichone) {
         $scope.selectedFiles = [];
         $scope.progress = [];
-        console.log($files);
         if ($scope.upload && $scope.upload.length > 0) {
             for (var i = 0; i < $scope.upload.length; i++) {
                 if ($scope.upload[i] != null) {
@@ -1781,7 +2084,6 @@ phonecatControllers.controller('createNotificationCtrl', function($scope, Templa
     $scope.start = function(index, whichone) {
         $scope.progress[index] = 0;
         $scope.errorMsg = null;
-        console.log($scope.howToSend = 1);
         if ($scope.howToSend == 1) {
             $scope.upload[index] = $upload.upload({
                 url: uploadUrl,
@@ -1889,7 +2191,6 @@ phonecatControllers.controller('editNotificationCtrl', function($scope, Template
     $scope.onFileSelect = function($files, whichone) {
         $scope.selectedFiles = [];
         $scope.progress = [];
-        console.log($files);
         if ($scope.upload && $scope.upload.length > 0) {
             for (var i = 0; i < $scope.upload.length; i++) {
                 if ($scope.upload[i] != null) {
@@ -1924,7 +2225,6 @@ phonecatControllers.controller('editNotificationCtrl', function($scope, Template
     $scope.start = function(index, whichone) {
         $scope.progress[index] = 0;
         $scope.errorMsg = null;
-        console.log($scope.howToSend = 1);
         if ($scope.howToSend == 1) {
             $scope.upload[index] = $upload.upload({
                 url: uploadUrl,
@@ -1993,7 +2293,6 @@ phonecatControllers.controller('editNotificationCtrl', function($scope, Template
         $scope.notification = data; //Add More Array
     });
     $scope.submitForm = function() {
-        console.log($scope.notification);
         $scope.notification._id = $routeParams.id;
         NavigationService.saveNotification($scope.notification, function(data, status) {
             $location.url('/notification');
