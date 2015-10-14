@@ -1,5 +1,5 @@
 // var adminurl = "http://localhost:1337/";
-var adminurl = "http://wohlig.com:81/";
+var adminurl = "http://119.18.48.125:81/";
 var adminlogin = {
     "username": "admin@admin.com",
     "password": "admin123"
@@ -80,9 +80,9 @@ var navigationservice = angular.module('navigationservice', [])
         getnav: function() {
             return navigation;
         },
-        adminLogin: function(data, callback) {
+        adminLogin: function (data, callback) {
             $http({
-                url: adminurl + "user/adminlogin",
+                url: adminurl + "loginuser/adminlogin",
                 method: "POST",
                 data: {
                     "email": data.email,

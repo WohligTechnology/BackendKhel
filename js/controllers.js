@@ -25,6 +25,7 @@ phonecatControllers.controller('login', function($scope, TemplateService, Naviga
     $scope.isValidLogin = 1;
     $scope.login = {};
     $scope.verifylogin = function() {
+        console.log($scope.login);
         if ($scope.login.email && $scope.login.password) {
             NavigationService.adminLogin($scope.login, function(data, status) {
                 if (data.value == "false") {
@@ -36,9 +37,9 @@ phonecatControllers.controller('login', function($scope, TemplateService, Naviga
                 }
             })
         } else {
+            console.log("blank login");
             $scope.isValidLogin = 0;
         }
-
     }
 });
 phonecatControllers.controller('headerctrl', function($scope, TemplateService, $location, $routeParams, NavigationService) {
@@ -2055,7 +2056,7 @@ phonecatControllers.controller('createNotificationCtrl', function($scope, Templa
     };
     $scope.angularVersion = window.location.hash.length > 1 ? (window.location.hash.indexOf('/') === 1 ?
         window.location.hash.substring(2) : window.location.hash.substring(1)) : '1.2.20';
-    $scope.onFileSelect = function($files, whichone) {
+    $scope.onFileSelect = function($files) {
         $scope.selectedFiles = [];
         $scope.progress = [];
         if ($scope.upload && $scope.upload.length > 0) {
@@ -2084,12 +2085,12 @@ phonecatControllers.controller('createNotificationCtrl', function($scope, Templa
             }
             $scope.progress[i] = -1;
             if ($scope.uploadRightAway) {
-                $scope.start(i, whichone);
+                $scope.start(i);
             }
         }
     };
 
-    $scope.start = function(index, whichone) {
+    $scope.start = function(index) {
         $scope.progress[index] = 0;
         $scope.errorMsg = null;
         if ($scope.howToSend == 1) {
@@ -2196,7 +2197,7 @@ phonecatControllers.controller('editNotificationCtrl', function($scope, Template
     };
     $scope.angularVersion = window.location.hash.length > 1 ? (window.location.hash.indexOf('/') === 1 ?
         window.location.hash.substring(2) : window.location.hash.substring(1)) : '1.2.20';
-    $scope.onFileSelect = function($files, whichone) {
+    $scope.onFileSelect = function($files) {
         $scope.selectedFiles = [];
         $scope.progress = [];
         if ($scope.upload && $scope.upload.length > 0) {
@@ -2225,12 +2226,12 @@ phonecatControllers.controller('editNotificationCtrl', function($scope, Template
             }
             $scope.progress[i] = -1;
             if ($scope.uploadRightAway) {
-                $scope.start(i, whichone);
+                $scope.start(i);
             }
         }
     };
 
-    $scope.start = function(index, whichone) {
+    $scope.start = function(index) {
         $scope.progress[index] = 0;
         $scope.errorMsg = null;
         if ($scope.howToSend == 1) {
@@ -2496,3 +2497,9 @@ phonecatControllers.controller('editAdsCtrl', function($scope, TemplateService, 
 });
 //editAds Controller
 //Add New Controller
+phonecatControllers.controller('headerctrl', function ($scope, TemplateService, $location) {
+    $scope.template = TemplateService;
+    if (!$.jStorage.get("adminuser")) {
+        $location.url("/login");
+    }
+});
