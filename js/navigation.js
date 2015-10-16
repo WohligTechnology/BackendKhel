@@ -48,6 +48,11 @@ var navigationservice = angular.module('navigationservice', [])
             link: '#/slider',
             subnav: []
         }, {
+            name: 'Video Gallery',
+            active: '',
+            link: '#/videogallery',
+            subnav: []
+        }, {
             name: 'Folder',
             active: '',
             link: '#/folder',
@@ -80,7 +85,7 @@ var navigationservice = angular.module('navigationservice', [])
         getnav: function() {
             return navigation;
         },
-        adminLogin: function (data, callback) {
+        adminLogin: function(data, callback) {
             $http({
                 url: adminurl + "loginuser/adminlogin",
                 method: "POST",
@@ -91,7 +96,7 @@ var navigationservice = angular.module('navigationservice', [])
             }).success(callback);
         },
         countUser: function(callback) {
-            $http.get(adminurl + "user/countusers").success(callback);
+            $http.get(adminurl + "loginuser/countusers").success(callback);
         },
         setUser: function(data) {
             $.jStorage.set("user", data);
@@ -525,6 +530,42 @@ var navigationservice = angular.module('navigationservice', [])
         saveSponsors: function(data, callback) {
             $http({
                 url: adminurl + 'sponsors/save',
+                method: 'POST',
+                data: data
+            }).success(callback);
+        },
+        getOneVideogallery: function(id, callback) {
+            $http({
+                url: adminurl + 'videogallery/findone',
+                method: 'POST',
+                data: {
+                    '_id': id
+                }
+            }).success(callback);
+        },
+        findLimitedVideogallery: function(videogallery, callback) {
+            $http({
+                url: adminurl + 'videogallery/findlimited',
+                method: 'POST',
+                data: {
+                    'search': videogallery.search,
+                    'pagesize': parseInt(videogallery.limit),
+                    'pagenumber': parseInt(videogallery.page)
+                }
+            }).success(callback);
+        },
+        deleteVideogallery: function(callback) {
+            $http({
+                url: adminurl + 'videogallery/delete',
+                method: 'POST',
+                data: {
+                    '_id': $.jStorage.get('deletevideogallery')
+                }
+            }).success(callback);
+        },
+        saveVideogallery: function(data, callback) {
+            $http({
+                url: adminurl + 'videogallery/save',
                 method: 'POST',
                 data: data
             }).success(callback);

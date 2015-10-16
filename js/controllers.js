@@ -44,10 +44,9 @@ phonecatControllers.controller('login', function($scope, TemplateService, Naviga
 });
 phonecatControllers.controller('headerctrl', function($scope, TemplateService, $location, $routeParams, NavigationService) {
     $scope.template = TemplateService;
-    //  if (!$.jStorage.get("adminuser")) {
-    //    $location.url("/login");
-    //
-    //  }
+    if (!$.jStorage.get("adminuser")) {
+        $location.url("/login");
+    }
 });
 
 phonecatControllers.controller('createorder', function($scope, TemplateService, NavigationService, ngDialog, $routeParams, $location) {
@@ -2038,8 +2037,7 @@ phonecatControllers.controller('createNotificationCtrl', function($scope, Templa
         $scope.notification.image = "";
     };
 
-    var uploadedimage = "";
-    $scope.notification.image = "";
+    var imagejstupld = "";
     $scope.usingFlash = FileAPI && FileAPI.upload != null;
     $scope.fileReaderSupported = window.FileReader != null && (window.FileAPI == null || FileAPI.html5 != false);
     $scope.uploadRightAway = true;
@@ -2059,6 +2057,7 @@ phonecatControllers.controller('createNotificationCtrl', function($scope, Templa
     $scope.onFileSelect = function($files) {
         $scope.selectedFiles = [];
         $scope.progress = [];
+        console.log($files);
         if ($scope.upload && $scope.upload.length > 0) {
             for (var i = 0; i < $scope.upload.length; i++) {
                 if ($scope.upload[i] != null) {
@@ -2093,6 +2092,7 @@ phonecatControllers.controller('createNotificationCtrl', function($scope, Templa
     $scope.start = function(index) {
         $scope.progress[index] = 0;
         $scope.errorMsg = null;
+        console.log($scope.howToSend = 1);
         if ($scope.howToSend == 1) {
             $scope.upload[index] = $upload.upload({
                 url: uploadUrl,
@@ -2109,9 +2109,9 @@ phonecatControllers.controller('createNotificationCtrl', function($scope, Templa
             $scope.upload[index].then(function(response) {
                 $timeout(function() {
                     $scope.uploadResult.push(response.data);
-                    uploadedimage = response.data;
-                    if (uploadedimage != "") {
-                        $scope.notification.image = uploadedimage.files[0].fd;
+                    imagejstupld = response.data;
+                    if (imagejstupld != "") {
+                        $scope.notification.image = imagejstupld.files[0].fd;
                     }
                 });
             }, function(response) {
@@ -2180,7 +2180,8 @@ phonecatControllers.controller('editNotificationCtrl', function($scope, Template
         $scope.notification.image = "";
     };
 
-    var uploadedimage = "";
+    var imagejstupld = "";
+    $scope.notification.image = "";
     $scope.usingFlash = FileAPI && FileAPI.upload != null;
     $scope.fileReaderSupported = window.FileReader != null && (window.FileAPI == null || FileAPI.html5 != false);
     $scope.uploadRightAway = true;
@@ -2200,6 +2201,7 @@ phonecatControllers.controller('editNotificationCtrl', function($scope, Template
     $scope.onFileSelect = function($files) {
         $scope.selectedFiles = [];
         $scope.progress = [];
+        console.log($files);
         if ($scope.upload && $scope.upload.length > 0) {
             for (var i = 0; i < $scope.upload.length; i++) {
                 if ($scope.upload[i] != null) {
@@ -2234,6 +2236,7 @@ phonecatControllers.controller('editNotificationCtrl', function($scope, Template
     $scope.start = function(index) {
         $scope.progress[index] = 0;
         $scope.errorMsg = null;
+        console.log($scope.howToSend = 1);
         if ($scope.howToSend == 1) {
             $scope.upload[index] = $upload.upload({
                 url: uploadUrl,
@@ -2250,9 +2253,9 @@ phonecatControllers.controller('editNotificationCtrl', function($scope, Template
             $scope.upload[index].then(function(response) {
                 $timeout(function() {
                     $scope.uploadResult.push(response.data);
-                    uploadedimage = response.data;
-                    if (uploadedimage != "") {
-                        $scope.notification.image = uploadedimage.files[0].fd;
+                    imagejstupld = response.data;
+                    if (imagejstupld != "") {
+                        $scope.notification.image = imagejstupld.files[0].fd;
                     }
                 });
             }, function(response) {
@@ -2402,6 +2405,97 @@ phonecatControllers.controller('editSponsorsCtrl', function($scope, TemplateServ
     };
     //editSponsors
 });
+phonecatControllers.controller('VideogalleryCtrl', function($scope, TemplateService, NavigationService, $routeParams, $location, ngDialog) {
+    $scope.template = TemplateService;
+    $scope.menutitle = NavigationService.makeactive('Videogallery');
+    TemplateService.title = $scope.menutitle;
+    TemplateService.submenu = '';
+    TemplateService.content = 'views/videogallery.html';
+    TemplateService.list = 2;
+    $scope.navigation = NavigationService.getnav();
+    $scope.videogallery = [];
+    $scope.pagedata = {};
+    $scope.pagedata.page = 1;
+    $scope.pagedata.limit = '20';
+    $scope.pagedata.search = '';
+    $scope.number = 100;
+    $scope.reload = function(pagedata) {
+        $scope.pagedata = pagedata;
+        NavigationService.findLimitedVideogallery($scope.pagedata, function(data, status) {
+            $scope.videogallery = data;
+            $scope.pages = [];
+            var newclass = '';
+            for (var i = 1; i <= data.totalpages; i++) {
+                if (pagedata.page == i) {
+                    newclass = 'active';
+                } else {
+                    newclass = '';
+                }
+                $scope.pages.push({
+                    pageno: i,
+                    class: newclass
+                });
+            }
+        });
+    }
+    $scope.reload($scope.pagedata);
+    $scope.confDelete = function() {
+        NavigationService.deleteVideogallery(function(data, status) {
+            ngDialog.close();
+            window.location.reload();
+        });
+    }
+    $scope.deletefun = function(id) {
+            $.jStorage.set('deletevideogallery', id);
+            ngDialog.open({
+                template: 'views/delete.html',
+                closeByEscape: false,
+                controller: 'VideogalleryCtrl',
+                closeByDocument: false
+            });
+        }
+        //End Sponsors
+});
+//sponsors Controller
+//createSponsors Controller
+phonecatControllers.controller('createVideogalleryCtrl', function($scope, TemplateService, NavigationService, $routeParams, $location, ngDialog) {
+    $scope.template = TemplateService;
+    $scope.menutitle = NavigationService.makeactive('Videogallery');
+    TemplateService.title = $scope.menutitle;
+    TemplateService.submenu = '';
+    TemplateService.content = 'views/createvideogallery.html';
+    TemplateService.list = 2;
+    $scope.navigation = NavigationService.getnav();
+    $scope.videogallery = {};
+    $scope.submitForm = function() {
+        NavigationService.saveVideogallery($scope.videogallery, function(data, status) {
+            $location.url('/videogallery');
+        });
+    };
+    //createSponsors
+});
+//createSponsors Controller
+//editSponsors Controller
+phonecatControllers.controller('editVideogalleryCtrl', function($scope, TemplateService, NavigationService, $routeParams, $location, ngDialog) {
+    $scope.template = TemplateService;
+    $scope.menutitle = NavigationService.makeactive('Videogallery');
+    TemplateService.title = $scope.menutitle;
+    TemplateService.submenu = '';
+    TemplateService.content = 'views/editvideogallery.html';
+    TemplateService.list = 2;
+    $scope.navigation = NavigationService.getnav();
+    $scope.videogallery = {};
+    NavigationService.getOneVideogallery($routeParams.id, function(data, status) {
+        $scope.videogallery = data; //Add More Array
+    });
+    $scope.submitForm = function() {
+        $scope.videogallery._id = $routeParams.id;
+        NavigationService.saveVideogallery($scope.videogallery, function(data, status) {
+            $location.url('/videogallery');
+        });
+    };
+    //editSponsors
+});
 //editSponsors Controller
 //Ads Controller
 phonecatControllers.controller('AdsCtrl', function($scope, TemplateService, NavigationService, $routeParams, $location, ngDialog) {
@@ -2497,9 +2591,3 @@ phonecatControllers.controller('editAdsCtrl', function($scope, TemplateService, 
 });
 //editAds Controller
 //Add New Controller
-phonecatControllers.controller('headerctrl', function ($scope, TemplateService, $location) {
-    $scope.template = TemplateService;
-    if (!$.jStorage.get("adminuser")) {
-        $location.url("/login");
-    }
-});

@@ -104,6 +104,15 @@ firstapp.config(
             }).when('/editsponsors/:id', {
                 templateUrl: 'views/template.html',
                 controller: 'editSponsorsCtrl'
+            }).when('/videogallery', {
+                templateUrl: 'views/template.html',
+                controller: 'VideogalleryCtrl'
+            }).when('/createvideogallery', {
+                templateUrl: 'views/template.html',
+                controller: 'createVideogalleryCtrl'
+            }).when('/editvideogallery/:id', {
+                templateUrl: 'views/template.html',
+                controller: 'editVideogalleryCtrl'
             }).when('/ads', {
                 templateUrl: 'views/template.html',
                 controller: 'AdsCtrl'
