@@ -2,7 +2,7 @@ var uploadres = [];
 var selectedData = [];
 var abc = {};
 var phonecatControllers = angular.module('phonecatControllers', ['templateservicemod', 'navigationservice', 'ngDialog', 'angularFileUpload', 'ui.select', 'ngSanitize']);
-window.uploadUrl = 'http://wohlig.com:81/uploadfile/uploadfile';
+window.uploadUrl = 'http://130.211.164.146:81/uploadfile/uploadfile';
 phonecatControllers.controller('home', function($scope, TemplateService, NavigationService, $routeParams, $location) {
     $scope.template = TemplateService;
     $scope.menutitle = NavigationService.makeactive("Dashboard");
