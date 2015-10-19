@@ -9,15 +9,18 @@
                 <div class="panel-body">
                     <form name="form_constraints" class="form-validation" data-ng-submit="submitForm()">
                         <div class='form-group'>
-                            <label>Name</label>
-                            <input type='text' class='form-control' ng-model='user.name' placeholder='Name' required> </div>
-                        <div class='form-group'>
-                            <label>Access Level</label>
-                            <select ng-model='user.accesslevel' class='form-control'>
-                                <option value='admin'>Admin</option>
-                                <option value='user'>User</option>
-                            </select>
+                            <label>Registration No.</label>
+                            <input type='text' class='form-control' ng-model='user.regno' required disabled="disabled">
                         </div>
+                        <div class='form-group'>
+                            <label>First Name</label>
+                            <input type='text' class='form-control' ng-model='user.firstname' placeholder='First Name' required> </div>
+                        <div class='form-group'>
+                            <label>Middle Name</label>
+                            <input type='text' class='form-control' ng-model='user.middlename' placeholder='Middle Name' required> </div>
+                        <div class='form-group'>
+                            <label>Last Name</label>
+                            <input type='text' class='form-control' ng-model='user.lastname' placeholder='Last Name' required> </div>
                         <div class='form-group'>
                             <label>Registration Date</label>
                             <input type='date' class='form-control' ng-model='user.registrationdate' disabled="disabled"> </div>
@@ -31,15 +34,6 @@
                                 <option value='female'>Female</option>
                             </select>
                         </div>
-                        <div class='form-group'>
-                            <label>First Name</label>
-                            <input type='text' class='form-control' ng-model='user.firstname' placeholder='First Name' required> </div>
-                        <div class='form-group'>
-                            <label>Middle Name</label>
-                            <input type='text' class='form-control' ng-model='user.middlename' placeholder='Middle Name' required> </div>
-                        <div class='form-group'>
-                            <label>Last Name</label>
-                            <input type='text' class='form-control' ng-model='user.lastname' placeholder='Last Name' required> </div>
                         <div class='form-group'>
                             <label>Mobile No</label>
                             <input type='number' class='form-control' ng-model='user.mobileno' placeholder='Mobile No' required> </div>
@@ -72,12 +66,7 @@
                         <div class='form-group ui-selecter'>
                             <label for='exampleInputEmail1'>Select Area</label>
                             <div class='form-group'>
-                                <ui-select multiple tagging tagging-label='false' ng-model='user.area' on-select='ismatchArea(user.area,$select);'>
-                                    <ui-select-match placeholder='Select Area'>{{$item.name}}</ui-select-match>
-                                    <ui-select-choices repeat='person in area track by person._id' refresh='refreshArea($select.search,$select.selected)' refresh-delay='0'>
-                                        <div ng-bind-html='person.name'></div>
-                                    </ui-select-choices>
-                                </ui-select>
+                                <input class='form-control' type="textbox" ng-model="user.area" placeholder="Area">
                             </div>
                         </div>
                         <div class='form-group'>

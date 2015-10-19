@@ -930,6 +930,9 @@ phonecatControllers.controller('editTeamCtrl', function($scope, TemplateService,
     TemplateService.list = 2;
     $scope.navigation = NavigationService.getnav();
     $scope.team = {};
+    $scope.team.pincode = [];
+    $scope.team.player = [];
+    $scope.team.pointslogs = [];
     NavigationService.getOneTeam($routeParams.id, function(data, status) {
         $scope.team = data;
         if (!$scope.team.pincode) {
