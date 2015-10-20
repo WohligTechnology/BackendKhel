@@ -9,10 +9,13 @@ phonecatControllers.controller('home', function($scope, TemplateService, Navigat
     TemplateService.title = $scope.menutitle;
     TemplateService.submenu = "";
     TemplateService.content = "views/dashboard.html";
-    TemplateService.list = 1;
+    TemplateService.list = 2;
     $scope.navigation = NavigationService.getnav();
     NavigationService.countUser(function(data, status) {
         $scope.user = data;
+    });
+    NavigationService.countregUser(function(data, status) {
+        $scope.users = data;
     });
 });
 phonecatControllers.controller('login', function($scope, TemplateService, NavigationService, $routeParams, $location) {
