@@ -18,27 +18,31 @@ var navigationservice = angular.module('navigationservice', [])
             active: '',
             link: '#/user',
             subnav: []
-        }, {
-            name: 'Articles',
-            active: '',
-            link: '#/articles',
-            subnav: []
-        }, {
+        }, 
+        // {
+        //     name: 'Articles',
+        //     active: '',
+        //     link: '#/articles',
+        //     subnav: []
+        // }, 
+        {
             name: 'Team',
             active: '',
             link: '#/team',
             subnav: []
-        }, {
-            name: 'Sports',
-            active: '',
-            link: '#/sports',
-            subnav: []
-        }, {
-            name: 'News',
-            active: '',
-            link: '#/news',
-            subnav: []
-        }, {
+        }, 
+        // {
+        //     name: 'Sports',
+        //     active: '',
+        //     link: '#/sports',
+        //     subnav: []
+        // }, {
+        //     name: 'News',
+        //     active: '',
+        //     link: '#/news',
+        //     subnav: []
+        // }, 
+        {
             name: 'Notification',
             active: '',
             link: '#/notification',
@@ -58,17 +62,18 @@ var navigationservice = angular.module('navigationservice', [])
             active: '',
             link: '#/folder',
             subnav: []
-        }, {
-            name: 'Sponsors',
-            active: '',
-            link: '#/sponsors',
-            subnav: []
-        }, {
-            name: 'Ads',
-            active: '',
-            link: '#/ads',
-            subnav: []
-        }, //Add New Left
+        }, 
+        // {
+        //     name: 'Sponsors',
+        //     active: '',
+        //     link: '#/sponsors',
+        //     subnav: []
+        // }, {
+        //     name: 'Ads',
+        //     active: '',
+        //     link: '#/ads',
+        //     subnav: []
+        // }, //Add New Left
 
     ];
 
