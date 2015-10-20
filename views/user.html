@@ -32,7 +32,7 @@
                                 </thead>
                                 <tbody>
                                     <tr ng-repeat="value in user.data">
-                                        <td class="text-center">{{value.firstname}}</td>
+                                        <td class="text-center">{{value.firstname}} {{value.middlename}} {{value.lastname}}</td>
                                         <td class="text-center"><a ng-click="deletefun(value._id)" class="btn btn-primary all-btn"><i class="fa fa-times"></i></a>
                                         </td>
                                         <td class="text-center">
