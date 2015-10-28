@@ -18,22 +18,23 @@
                             <label for='exampleInputEmail1'>Content</label>
                             <textarea class='form-control' ng-model='team.content' placeholder='Content' required></textarea>
                         </div>
-                        <array objval='PincodeStructure' label='Pincode' editval='team.pincode' ng-if="team.pincode.length > 0"></array>
                         <div class='form-group'>
+                            <label>Points</label>
+                            <input type='number' class='form-control' ng-model='team.points' placeholder='Points'> 
+                        </div>
+                        <array objval='PincodeStructure' label='Pincode' editval='team.pincode' ng-if="team.pincode.length>0"></array>
+                        <!-- <div class='form-group'>
                             <label>Status</label>
                             <select ng-model='team.status' class='form-control'>
                                 <option value='enabled'>Enabled</option>
                                 <option value='disabled'>Disabled</option>
                             </select>
-                        </div>
-                        <div class='form-group'>
-                            <label>Points</label>
-                            <input type='number' class='form-control' ng-model='team.points' placeholder='Points'> </div>
-                        <array objval='PlayerStructure' label='Player' editval='team.player' ng-if="team.player.length > 0"></array>
-                        <array objval='PointsLogsStructure' label='PointsLogs' editval='team.pointslogs' ng-if="team.pointslogs.length > 0"></array>
+                        </div> -->
+                        <!-- <array objval='PlayerStructure' label='Player' editval='team.player'></array>
+                        <array objval='PointsLogsStructure' label='PointsLogs' editval='team.pointslogs'></array>
                         <div class='form-group'>
                             <label>SMS Gateway</label>
-                            <input type='text' class='form-control' ng-model='team.smsgateway' placeholder='SMS Gateway'> </div>
+                            <input type='text' class='form-control' ng-model='team.smsgateway' placeholder='SMS Gateway'> </div> -->
                         <!--Add New Tags-->
                         <div class="text-center" style="padding-bottom:20px;">
                             <button type="submit" class="btn btn-primary all-btn">Submit</button>

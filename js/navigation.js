@@ -152,92 +152,11 @@ var navigationservice = angular.module('navigationservice', [])
                 }
             }).success(callback);
         },
-        saveArea: function(data, callback) {
-            $http({
-                url: adminurl + 'area/save',
-                method: 'POST',
-                data: {
-                    'name': data.name
-                }
-            }).success(callback);
-        },
-        findArea: function(data, area, callback) {
-            $http({
-                url: adminurl + 'area/find',
-                method: 'POST',
-                data: {
-                    search: data,
-                    area: area
-                }
-            }).success(callback);
-        },
         getTeam: function(callback) {
             $http({
                 url: adminurl + 'team/find',
                 method: 'POST',
                 data: {}
-            }).success(callback);
-        },
-        getSports: function(callback) {
-            $http({
-                url: adminurl + 'sports/find',
-                method: 'POST',
-                data: {}
-            }).success(callback);
-        },
-        saveVolunteers: function(data, callback) {
-            $http({
-                url: adminurl + 'volunteers/save',
-                method: 'POST',
-                data: {
-                    'name': data.name
-                }
-            }).success(callback);
-        },
-        findVolunteers: function(data, volunteers, callback) {
-            $http({
-                url: adminurl + 'volunteers/find',
-                method: 'POST',
-                data: {
-                    search: data,
-                    volunteers: volunteers
-                }
-            }).success(callback);
-        },
-        getOneArticles: function(id, callback) {
-            $http({
-                url: adminurl + 'articles/findone',
-                method: 'POST',
-                data: {
-                    '_id': id
-                }
-            }).success(callback);
-        },
-        findLimitedArticles: function(articles, callback) {
-            $http({
-                url: adminurl + 'articles/findlimited',
-                method: 'POST',
-                data: {
-                    'search': articles.search,
-                    'pagesize': parseInt(articles.limit),
-                    'pagenumber': parseInt(articles.page)
-                }
-            }).success(callback);
-        },
-        deleteArticles: function(callback) {
-            $http({
-                url: adminurl + 'articles/delete',
-                method: 'POST',
-                data: {
-                    '_id': $.jStorage.get('deletearticles')
-                }
-            }).success(callback);
-        },
-        saveArticles: function(data, callback) {
-            $http({
-                url: adminurl + 'articles/save',
-                method: 'POST',
-                data: data
             }).success(callback);
         },
         getOneTeam: function(id, callback) {
@@ -272,97 +191,6 @@ var navigationservice = angular.module('navigationservice', [])
         saveTeam: function(data, callback) {
             $http({
                 url: adminurl + 'team/save',
-                method: 'POST',
-                data: data
-            }).success(callback);
-        },
-        getOneSports: function(id, callback) {
-            $http({
-                url: adminurl + 'sports/findone',
-                method: 'POST',
-                data: {
-                    '_id': id
-                }
-            }).success(callback);
-        },
-        findLimitedSports: function(sports, callback) {
-            $http({
-                url: adminurl + 'sports/findlimited',
-                method: 'POST',
-                data: {
-                    'search': sports.search,
-                    'pagesize': parseInt(sports.limit),
-                    'pagenumber': parseInt(sports.page)
-                }
-            }).success(callback);
-        },
-        deleteSports: function(callback) {
-            $http({
-                url: adminurl + 'sports/delete',
-                method: 'POST',
-                data: {
-                    '_id': $.jStorage.get('deletesports')
-                }
-            }).success(callback);
-        },
-        saveSports: function(data, callback) {
-            $http({
-                url: adminurl + 'sports/save',
-                method: 'POST',
-                data: data
-            }).success(callback);
-        },
-        saveSubSports: function(data, callback) {
-            $http({
-                url: adminurl + 'subsports/save',
-                method: 'POST',
-                data: {
-                    'name': data.name
-                }
-            }).success(callback);
-        },
-        findSubSports: function(data, subsports, callback) {
-            $http({
-                url: adminurl + 'subsports/find',
-                method: 'POST',
-                data: {
-                    search: data,
-                    subsports: subsports
-                }
-            }).success(callback);
-        },
-        getOneNews: function(id, callback) {
-            $http({
-                url: adminurl + 'news/findone',
-                method: 'POST',
-                data: {
-                    '_id': id
-                }
-            }).success(callback);
-        },
-        findLimitedNews: function(news, callback) {
-            $http({
-                url: adminurl + 'news/findlimited',
-                method: 'POST',
-                data: {
-                    'search': news.search,
-                    'pagesize': parseInt(news.limit),
-                    'pagenumber': parseInt(news.page)
-                }
-            }).success(callback);
-        },
-        deleteNews: function(callback) {
-            $http({
-                url: adminurl + 'news/delete',
-                method: 'POST',
-                data: {
-                    '_id': $.jStorage.get('deletenews')
-                }
-            }).success(callback);
-        },
-        saveNews: function(data, callback) {
-            $http({
-                url: adminurl + 'news/save',
                 method: 'POST',
                 data: data
             }).success(callback);
@@ -439,13 +267,6 @@ var navigationservice = angular.module('navigationservice', [])
                 data: data
             }).success(callback);
         },
-        getTeam: function(callback) {
-            $http({
-                url: adminurl + 'team/find',
-                method: 'POST',
-                data: {}
-            }).success(callback);
-        },
         getOneNotification: function(id, callback) {
             $http({
                 url: adminurl + 'notification/findone',
@@ -489,42 +310,6 @@ var navigationservice = angular.module('navigationservice', [])
                 data: data
             }).success(callback);
         },
-        getOneSponsors: function(id, callback) {
-            $http({
-                url: adminurl + 'sponsors/findone',
-                method: 'POST',
-                data: {
-                    '_id': id
-                }
-            }).success(callback);
-        },
-        findLimitedSponsors: function(sponsors, callback) {
-            $http({
-                url: adminurl + 'sponsors/findlimited',
-                method: 'POST',
-                data: {
-                    'search': sponsors.search,
-                    'pagesize': parseInt(sponsors.limit),
-                    'pagenumber': parseInt(sponsors.page)
-                }
-            }).success(callback);
-        },
-        deleteSponsors: function(callback) {
-            $http({
-                url: adminurl + 'sponsors/delete',
-                method: 'POST',
-                data: {
-                    '_id': $.jStorage.get('deletesponsors')
-                }
-            }).success(callback);
-        },
-        saveSponsors: function(data, callback) {
-            $http({
-                url: adminurl + 'sponsors/save',
-                method: 'POST',
-                data: data
-            }).success(callback);
-        },
         getOneVideogallery: function(id, callback) {
             $http({
                 url: adminurl + 'videogallery/findone',
@@ -560,43 +345,6 @@ var navigationservice = angular.module('navigationservice', [])
                 method: 'POST',
                 data: data
             }).success(callback);
-        },
-        getOneAds: function(id, callback) {
-            $http({
-                url: adminurl + 'ads/findone',
-                method: 'POST',
-                data: {
-                    '_id': id
-                }
-            }).success(callback);
-        },
-        findLimitedAds: function(ads, callback) {
-            $http({
-                url: adminurl + 'ads/findlimited',
-                method: 'POST',
-                data: {
-                    'search': ads.search,
-                    'pagesize': parseInt(ads.limit),
-                    'pagenumber': parseInt(ads.page)
-                }
-            }).success(callback);
-        },
-        deleteAds: function(callback) {
-            $http({
-                url: adminurl + 'ads/delete',
-                method: 'POST',
-                data: {
-                    '_id': $.jStorage.get('deleteads')
-                }
-            }).success(callback);
-        },
-        saveAds: function(data, callback) {
-            $http({
-                url: adminurl + 'ads/save',
-                method: 'POST',
-                data: data
-            }).success(callback);
         }, //Add New Service
-
     }
 })
