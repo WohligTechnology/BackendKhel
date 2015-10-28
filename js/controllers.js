@@ -2312,7 +2312,7 @@ phonecatControllers.controller('editNotificationCtrl', function($scope, Template
     });
     $scope.submitForm = function() {
         $scope.notification._id = $routeParams.id;
-        NavigationService.saveNotification($scope.notification, function(data, status) {
+        NavigationService.editNotification($scope.notification, function(data, status) {
             $location.url('/notification');
         });
     };

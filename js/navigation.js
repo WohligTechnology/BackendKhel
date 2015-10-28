@@ -19,24 +19,14 @@ var navigationservice = angular.module('navigationservice', [])
             link: '#/user',
             subnav: []
         }, {
-            name: 'Articles',
-            active: '',
-            link: '#/articles',
-            subnav: []
-        }, {
             name: 'Team',
             active: '',
             link: '#/team',
             subnav: []
         }, {
-            name: 'Sports',
+            name: 'Schedule',
             active: '',
-            link: '#/sports',
-            subnav: []
-        }, {
-            name: 'News',
-            active: '',
-            link: '#/news',
+            link: '#/schedule',
             subnav: []
         }, {
             name: 'Notification',
@@ -57,16 +47,6 @@ var navigationservice = angular.module('navigationservice', [])
             name: 'Folder',
             active: '',
             link: '#/folder',
-            subnav: []
-        }, {
-            name: 'Sponsors',
-            active: '',
-            link: '#/sponsors',
-            subnav: []
-        }, {
-            name: 'Ads',
-            active: '',
-            link: '#/ads',
             subnav: []
         }, //Add New Left
 
@@ -498,6 +478,13 @@ var navigationservice = angular.module('navigationservice', [])
         saveNotification: function(data, callback) {
             $http({
                 url: adminurl + 'notification/save',
+                method: 'POST',
+                data: data
+            }).success(callback);
+        },
+        editNotification: function(data, callback) {
+            $http({
+                url: adminurl + 'notification/editnot',
                 method: 'POST',
                 data: data
             }).success(callback);

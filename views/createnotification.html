@@ -24,7 +24,7 @@
                         <div class="upload-div">
                             <div ng-init="httpMethod = 'POST';howToSend = 1;"></div>
                             <div class="upload-buttons">
-                                <input type="file" name="file" ng-file-select="onFileSelect($files,1)" onclick="this.value=null">
+                                <input type="file" name="file" ng-file-select="onFileSelect($files)" onclick="this.value=null">
                             </div>
                             <div class="response" ng-show="uploadResult.length > 0">
                                 <span ng-repeat="result in uploadResult">
