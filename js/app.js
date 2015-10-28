@@ -32,15 +32,6 @@ firstapp.config(
             }).when('/edituser/:id', {
                 templateUrl: 'views/template.html',
                 controller: 'editUserCtrl'
-            }).when('/articles', {
-                templateUrl: 'views/template.html',
-                controller: 'ArticlesCtrl'
-            }).when('/createarticles', {
-                templateUrl: 'views/template.html',
-                controller: 'createArticlesCtrl'
-            }).when('/editarticles/:id', {
-                templateUrl: 'views/template.html',
-                controller: 'editArticlesCtrl'
             }).when('/team', {
                 templateUrl: 'views/template.html',
                 controller: 'TeamCtrl'
@@ -50,24 +41,6 @@ firstapp.config(
             }).when('/editteam/:id', {
                 templateUrl: 'views/template.html',
                 controller: 'editTeamCtrl'
-            }).when('/sports', {
-                templateUrl: 'views/template.html',
-                controller: 'SportsCtrl'
-            }).when('/createsports', {
-                templateUrl: 'views/template.html',
-                controller: 'createSportsCtrl'
-            }).when('/editsports/:id', {
-                templateUrl: 'views/template.html',
-                controller: 'editSportsCtrl'
-            }).when('/news', {
-                templateUrl: 'views/template.html',
-                controller: 'NewsCtrl'
-            }).when('/createnews', {
-                templateUrl: 'views/template.html',
-                controller: 'createNewsCtrl'
-            }).when('/editnews/:id', {
-                templateUrl: 'views/template.html',
-                controller: 'editNewsCtrl'
             }).when('/slider', {
                 templateUrl: 'views/template.html',
                 controller: 'SliderCtrl'
@@ -77,6 +50,15 @@ firstapp.config(
             }).when('/editslider/:id', {
                 templateUrl: 'views/template.html',
                 controller: 'editSliderCtrl'
+            }).when('/schedule', {
+                templateUrl: 'views/template.html',
+                controller: 'ScheduleCtrl'
+            }).when('/createschedule', {
+                templateUrl: 'views/template.html',
+                controller: 'createScheduleCtrl'
+            }).when('/editschedule/:id', {
+                templateUrl: 'views/template.html',
+                controller: 'editScheduleCtrl'
             }).when('/folder', {
                 templateUrl: 'views/template.html',
                 controller: 'FolderCtrl'
@@ -95,15 +77,6 @@ firstapp.config(
             }).when('/editnotification/:id', {
                 templateUrl: 'views/template.html',
                 controller: 'editNotificationCtrl'
-            }).when('/sponsors', {
-                templateUrl: 'views/template.html',
-                controller: 'SponsorsCtrl'
-            }).when('/createsponsors', {
-                templateUrl: 'views/template.html',
-                controller: 'createSponsorsCtrl'
-            }).when('/editsponsors/:id', {
-                templateUrl: 'views/template.html',
-                controller: 'editSponsorsCtrl'
             }).when('/videogallery', {
                 templateUrl: 'views/template.html',
                 controller: 'VideogalleryCtrl'
@@ -113,15 +86,6 @@ firstapp.config(
             }).when('/editvideogallery/:id', {
                 templateUrl: 'views/template.html',
                 controller: 'editVideogalleryCtrl'
-            }).when('/ads', {
-                templateUrl: 'views/template.html',
-                controller: 'AdsCtrl'
-            }).when('/createads', {
-                templateUrl: 'views/template.html',
-                controller: 'createAdsCtrl'
-            }).when('/editads/:id', {
-                templateUrl: 'views/template.html',
-                controller: 'editAdsCtrl'
             }). //Add New Path
 
         otherwise({

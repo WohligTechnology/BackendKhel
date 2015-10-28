@@ -51,7 +51,6 @@ phonecatControllers.controller('headerctrl', function($scope, TemplateService, $
         $location.url("/login");
     }
 });
-
 //User Controller
 phonecatControllers.controller('UserCtrl', function($scope, TemplateService, NavigationService, $routeParams, $location, ngDialog) {
     $scope.template = TemplateService;
@@ -286,70 +285,6 @@ phonecatControllers.controller('createUserCtrl', function($scope, TemplateServic
             });
         }
     };
-    $scope.user.area = [];
-    $scope.ismatchArea = function(data, select) {
-        _.each(data, function(l, key) {
-            if (typeof l == 'string') {
-                var item = {
-                    _id: _.now(),
-                    name: _.capitalize(l)
-                };
-                NavigationService.saveArea(item, function(data, status) {
-                    if (data.value == true) {
-                        item._id = data.id;
-                    }
-                });
-                select.selected = _.without(select.selected, l);
-                select.selected.push(item);
-                $scope.user.area = select.selected;
-            }
-        });
-    }
-    $scope.refreshArea = function(search) {
-        $scope.area = [];
-        if (search) {
-            NavigationService.findArea(search, $scope.user.area, function(data, status) {
-                if (data.value != false) {
-                    $scope.area = data;
-                }
-            });
-        }
-    };
-    NavigationService.getTeam(function(data, status) {
-        $scope.team = data;
-    });
-    NavigationService.getSports(function(data, status) {
-        $scope.sport = data;
-    });
-    $scope.user.volunteers = [];
-    $scope.ismatchVolunteers = function(data, select) {
-        _.each(data, function(l, key) {
-            if (typeof l == 'string') {
-                var item = {
-                    _id: _.now(),
-                    name: _.capitalize(l)
-                };
-                NavigationService.saveVolunteers(item, function(data, status) {
-                    if (data.value == true) {
-                        item._id = data.id;
-                    }
-                });
-                select.selected = _.without(select.selected, l);
-                select.selected.push(item);
-                $scope.user.volunteers = select.selected;
-            }
-        });
-    }
-    $scope.refreshVolunteers = function(search) {
-        $scope.volunteers = [];
-        if (search) {
-            NavigationService.findVolunteers(search, $scope.user.volunteers, function(data, status) {
-                if (data.value != false) {
-                    $scope.volunteers = data;
-                }
-            });
-        }
-    };
     //createUser
 });
 //createUser Controller
@@ -538,70 +473,6 @@ phonecatControllers.controller('editUserCtrl', function($scope, TemplateService,
             NavigationService.findVillage(search, $scope.user.village, function(data, status) {
                 if (data.value != false) {
                     $scope.village = data;
-                }
-            });
-        }
-    };
-    $scope.user.area = [];
-    $scope.ismatchArea = function(data, select) {
-        _.each(data, function(l, key) {
-            if (typeof l == 'string') {
-                var item = {
-                    _id: _.now(),
-                    name: _.capitalize(l)
-                };
-                NavigationService.saveArea(item, function(data, status) {
-                    if (data.value == true) {
-                        item._id = data.id;
-                    }
-                });
-                select.selected = _.without(select.selected, l);
-                select.selected.push(item);
-                $scope.user.area = select.selected;
-            }
-        });
-    }
-    $scope.refreshArea = function(search) {
-        $scope.area = [];
-        if (search) {
-            NavigationService.findArea(search, $scope.user.area, function(data, status) {
-                if (data.value != false) {
-                    $scope.area = data;
-                }
-            });
-        }
-    };
-    NavigationService.getTeam(function(data, status) {
-        $scope.team = data;
-    });
-    NavigationService.getSports(function(data, status) {
-        $scope.sport = data;
-    });
-    $scope.user.volunteers = [];
-    $scope.ismatchVolunteers = function(data, select) {
-        _.each(data, function(l, key) {
-            if (typeof l == 'string') {
-                var item = {
-                    _id: _.now(),
-                    name: _.capitalize(l)
-                };
-                NavigationService.saveVolunteers(item, function(data, status) {
-                    if (data.value == true) {
-                        item._id = data.id;
-                    }
-                });
-                select.selected = _.without(select.selected, l);
-                select.selected.push(item);
-                $scope.user.volunteers = select.selected;
-            }
-        });
-    }
-    $scope.refreshVolunteers = function(search) {
-        $scope.volunteers = [];
-        if (search) {
-            NavigationService.findVolunteers(search, $scope.user.volunteers, function(data, status) {
-                if (data.value != false) {
-                    $scope.volunteers = data;
                 }
             });
         }
@@ -1211,13 +1082,13 @@ phonecatControllers.controller('createFolderCtrl', function($scope, TemplateServ
     TemplateService.list = 2;
     $scope.navigation = NavigationService.getnav();
     $scope.folder = {};
-
+    $scope.folder.image = [];
     $scope.removeimage = function(i) {
         $scope.folder.image.splice(i, 1);
     };
 
     var imagejstupld = "";
-    $scope.folder.image = [];
+    
     $scope.usingFlash = FileAPI && FileAPI.upload != null;
     $scope.fileReaderSupported = window.FileReader != null && (window.FileAPI == null || FileAPI.html5 != false);
     $scope.uploadRightAway = true;
@@ -1929,4 +1800,97 @@ phonecatControllers.controller('editVideogalleryCtrl', function($scope, Template
     //editSponsors
 });
 //editvideogallery Controller
+//Schedule Controller
+phonecatControllers.controller('ScheduleCtrl', function($scope, TemplateService, NavigationService, $routeParams, $location, ngDialog) {
+    $scope.template = TemplateService;
+    $scope.menutitle = NavigationService.makeactive('Schedule');
+    TemplateService.title = $scope.menutitle;
+    TemplateService.submenu = '';
+    TemplateService.content = 'views/schedule.html';
+    TemplateService.list = 2;
+    $scope.navigation = NavigationService.getnav();
+    $scope.schedule = [];
+    $scope.pagedata = {};
+    $scope.pagedata.page = 1;
+    $scope.pagedata.limit = '20';
+    $scope.pagedata.search = '';
+    $scope.number = 100;
+    $scope.reload = function(pagedata) {
+        $scope.pagedata = pagedata;
+        NavigationService.findLimitedSchedule($scope.pagedata, function(data, status) {
+            $scope.schedule = data;
+            $scope.pages = [];
+            var newclass = '';
+            for (var i = 1; i <= data.totalpages; i++) {
+                if (pagedata.page == i) {
+                    newclass = 'active';
+                } else {
+                    newclass = '';
+                }
+                $scope.pages.push({
+                    pageno: i,
+                    class: newclass
+                });
+            }
+        });
+    }
+    $scope.reload($scope.pagedata);
+    $scope.confDelete = function() {
+        NavigationService.deleteSchedule(function(data, status) {
+            ngDialog.close();
+            window.location.reload();
+        });
+    }
+    $scope.deletefun = function(id) {
+            $.jStorage.set('deleteschedule', id);
+            ngDialog.open({
+                template: 'views/delete.html',
+                closeByEscape: false,
+                controller: 'ScheduleCtrl',
+                closeByDocument: false
+            });
+        }
+        //End Sponsors
+});
+//Schedule Controller
+//createSchedule Controller
+phonecatControllers.controller('createScheduleCtrl', function($scope, TemplateService, NavigationService, $routeParams, $location, ngDialog) {
+    $scope.template = TemplateService;
+    $scope.menutitle = NavigationService.makeactive('Schedule');
+    TemplateService.title = $scope.menutitle;
+    TemplateService.submenu = '';
+    TemplateService.content = 'views/createschedule.html';
+    TemplateService.list = 2;
+    $scope.navigation = NavigationService.getnav();
+    $scope.schedule = {};
+    $scope.submitForm = function() {
+        NavigationService.saveSchedule($scope.schedule, function(data, status) {
+            $location.url('/schedule');
+        });
+    };
+    //createSponsors
+});
+//createSchedule Controller
+//editSchedule Controller
+phonecatControllers.controller('editScheduleCtrl', function($scope, TemplateService, NavigationService, $routeParams, $location, ngDialog) {
+    $scope.template = TemplateService;
+    $scope.menutitle = NavigationService.makeactive('Schedule');
+    TemplateService.title = $scope.menutitle;
+    TemplateService.submenu = '';
+    TemplateService.content = 'views/editschedule.html';
+    TemplateService.list = 2;
+    $scope.navigation = NavigationService.getnav();
+    $scope.schedule = {};
+    NavigationService.getOneSchedule($routeParams.id, function(data, status) {
+        $scope.schedule = data; //Add More Array
+    });
+    $scope.submitForm = function() {
+        $scope.schedule._id = $routeParams.id;
+        NavigationService.saveSchedule($scope.schedule, function(data, status) {
+            $location.url('/schedule');
+        });
+    };
+    //editSponsors
+});
+//editSchedule Controller
 //Add New Controller

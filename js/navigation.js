@@ -345,6 +345,42 @@ var navigationservice = angular.module('navigationservice', [])
                 method: 'POST',
                 data: data
             }).success(callback);
+        },
+        getOneSchedule: function(id, callback) {
+            $http({
+                url: adminurl + 'schedule/findone',
+                method: 'POST',
+                data: {
+                    '_id': id
+                }
+            }).success(callback);
+        },
+        findLimitedSchedule: function(schedule, callback) {
+            $http({
+                url: adminurl + 'schedule/findlimited',
+                method: 'POST',
+                data: {
+                    'search': schedule.search,
+                    'pagesize': parseInt(schedule.limit),
+                    'pagenumber': parseInt(schedule.page)
+                }
+            }).success(callback);
+        },
+        deleteSchedule: function(callback) {
+            $http({
+                url: adminurl + 'schedule/delete',
+                method: 'POST',
+                data: {
+                    '_id': $.jStorage.get('deleteschedule')
+                }
+            }).success(callback);
+        },
+        saveSchedule: function(data, callback) {
+            $http({
+                url: adminurl + 'schedule/save',
+                method: 'POST',
+                data: data
+            }).success(callback);
         }, //Add New Service
     }
 })

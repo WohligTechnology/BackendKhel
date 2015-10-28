@@ -1,0 +1,48 @@
+<div class="page">
+    <h2 class="title">
+</h2>
+    <div class="row">
+        <div class="col-md-12">
+            <section class="panel panel-default" style="border-radius:0px;">
+                <div class="panel-heading panel-hdr"><span class="glyphicon glyphicon-th mr5"></span>Edit Schedule
+                </div>
+                <div class="panel-body">
+                    <form name="form_constraints" class="form-validation" data-ng-submit="submitForm()">
+                        <div class='form-group'>
+                            <label>Event Name</label>
+                            <input type='text' class='form-control' ng-model='schedule.event' placeholder='Event Name' required>
+                        </div>
+                        <div class='form-group'>
+                            <label for='exampleInputEmail1'>Zone</label>
+                            <input type='text' class='form-control' ng-model='schedule.zone' placeholder='Zone' required>
+                        </div>
+                        <div class='form-group'>
+                            <label for='exampleInputEmail1'>Venue</label>
+                            <input type='text' class='form-control' ng-model='schedule.venue' placeholder='Venue' required>
+                        </div>
+                        <div class='form-group'>
+                            <label for='exampleInputEmail1'>Reporting Time</label>
+                            <input type='text' class='form-control' ng-model='schedule.report' placeholder='Reporting Time' required>
+                        </div>
+                        <div class='form-group'>
+                            <label for='exampleInputEmail1'>Date</label>
+                            <input type='text' class='form-control' ng-model='schedule.date' placeholder='Date' required>
+                        </div>
+                        <div class='form-group'>
+                            <label for='exampleInputEmail1'>Category</label>
+                            <input type='text' class='form-control' ng-model='schedule.category' placeholder='Category' required>
+                        </div>
+                        <div class='form-group'>
+                            <label for='exampleInputEmail1'>Court</label>
+                            <input type='text' class='form-control' ng-model='schedule.court' placeholder='Court' required>
+                        </div>
+                        <!--Add New Tags-->
+                        <div class="text-center" style="padding-bottom:20px;">
+                            <button type="submit" class="btn btn-primary all-btn">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
