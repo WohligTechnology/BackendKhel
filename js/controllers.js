@@ -128,6 +128,10 @@ phonecatControllers.controller('createUserCtrl', function($scope, TemplateServic
     $scope.checked = [];
     $scope.sportsflag = "";
 
+    NavigationService.countregUser(function(data, status) {
+        $scope.user.regno = data + 1;
+    });
+
     $scope.divs = [{
         name: "div1",
         vlaue: false
@@ -222,10 +226,9 @@ phonecatControllers.controller('createUserCtrl', function($scope, TemplateServic
         }
     };
 
-    //////////////////////////
-
     $scope.submitForm = function() {
         if ($scope.isValidEmail == 1) {
+            console.log($scope.user);
             NavigationService.saveUser($scope.user, function(data, status) {
                 if (data.value == false && data.comment == "No such pincode") {
                     ngDialog.open({
