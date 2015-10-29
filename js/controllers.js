@@ -1863,6 +1863,28 @@ phonecatControllers.controller('createScheduleCtrl', function($scope, TemplateSe
     TemplateService.list = 2;
     $scope.navigation = NavigationService.getnav();
     $scope.schedule = {};
+
+    $scope.addEvent = function (crdv) {
+        if (!crdv.events) {
+            crdv.events = [{
+                "time": "",
+                "event": "",
+                "category": "",
+                "court":""
+                }];
+        } else {
+            crdv.events.push({
+                "time": "",
+                "event": "",
+                "category": "",
+                "court":""
+            });
+        }
+    };
+    $scope.removeEvent = function (i, dev) {
+        dev.splice(i, 1);
+    };
+
     $scope.submitForm = function() {
         NavigationService.saveSchedule($scope.schedule, function(data, status) {
             $location.url('/schedule');
@@ -1884,6 +1906,28 @@ phonecatControllers.controller('editScheduleCtrl', function($scope, TemplateServ
     NavigationService.getOneSchedule($routeParams.id, function(data, status) {
         $scope.schedule = data; //Add More Array
     });
+
+    $scope.addEvent = function (crdv) {
+        if (!crdv.events) {
+            crdv.events = [{
+                "time": "",
+                "event": "",
+                "category": "",
+                "court":""
+                }];
+        } else {
+            crdv.events.push({
+                "time": "",
+                "event": "",
+                "category": "",
+                "court":""
+            });
+        }
+    };
+    $scope.removeEvent = function (i, dev) {
+        dev.splice(i, 1);
+    };
+
     $scope.submitForm = function() {
         $scope.schedule._id = $routeParams.id;
         NavigationService.saveSchedule($scope.schedule, function(data, status) {
