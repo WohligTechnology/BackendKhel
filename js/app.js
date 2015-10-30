@@ -77,6 +77,15 @@ firstapp.config(
             }).when('/editnotification/:id', {
                 templateUrl: 'views/template.html',
                 controller: 'editNotificationCtrl'
+            }).when('/sponsors', {
+                templateUrl: 'views/template.html',
+                controller: 'SponsorsCtrl'
+            }).when('/createsponsors', {
+                templateUrl: 'views/template.html',
+                controller: 'createSponsorsCtrl'
+            }).when('/editsponsors/:id', {
+                templateUrl: 'views/template.html',
+                controller: 'editSponsorsCtrl'
             }).when('/videogallery', {
                 templateUrl: 'views/template.html',
                 controller: 'VideogalleryCtrl'

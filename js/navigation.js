@@ -39,6 +39,11 @@ var navigationservice = angular.module('navigationservice', [])
             link: '#/slider',
             subnav: []
         }, {
+            name: 'Sponsors',
+            active: '',
+            link: '#/sponsors',
+            subnav: []
+        }, {
             name: 'Video Gallery',
             active: '',
             link: '#/videogallery',
@@ -306,6 +311,41 @@ var navigationservice = angular.module('navigationservice', [])
         editNotification: function(data, callback) {
             $http({
                 url: adminurl + 'notification/editnot',
+                method: 'POST',
+                data: data
+            }).success(callback);
+        },getOneSponsors: function(id, callback) {
+            $http({
+                url: adminurl + 'sponsors/findone',
+                method: 'POST',
+                data: {
+                    '_id': id
+                }
+            }).success(callback);
+        },
+        findLimitedSponsors: function(sponsors, callback) {
+            $http({
+                url: adminurl + 'sponsors/findlimited',
+                method: 'POST',
+                data: {
+                    'search': sponsors.search,
+                    'pagesize': parseInt(sponsors.limit),
+                    'pagenumber': parseInt(sponsors.page)
+                }
+            }).success(callback);
+        },
+        deleteSponsors: function(callback) {
+            $http({
+                url: adminurl + 'sponsors/delete',
+                method: 'POST',
+                data: {
+                    '_id': $.jStorage.get('deletesponsors')
+                }
+            }).success(callback);
+        },
+        saveSponsors: function(data, callback) {
+            $http({
+                url: adminurl + 'sponsors/save',
                 method: 'POST',
                 data: data
             }).success(callback);

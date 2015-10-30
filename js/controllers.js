@@ -1937,4 +1937,95 @@ phonecatControllers.controller('editScheduleCtrl', function($scope, TemplateServ
     //editSponsors
 });
 //editSchedule Controller
+phonecatControllers.controller('SponsorsCtrl', function($scope, TemplateService, NavigationService, $routeParams, $location, ngDialog) {
+    $scope.template = TemplateService;
+    $scope.menutitle = NavigationService.makeactive('Sponsors');
+    TemplateService.title = $scope.menutitle;
+    TemplateService.submenu = '';
+    TemplateService.content = 'views/sponsors.html';
+    TemplateService.list = 2;
+    $scope.navigation = NavigationService.getnav();
+    $scope.Sponsors = [];
+    $scope.pagedata = {};
+    $scope.pagedata.page = 1;
+    $scope.pagedata.limit = '20';
+    $scope.pagedata.search = '';
+    $scope.number = 100;
+    $scope.reload = function(pagedata) {
+        $scope.pagedata = pagedata;
+        NavigationService.findLimitedSponsors($scope.pagedata, function(data, status) {
+            $scope.sponsors = data;
+            $scope.pages = [];
+            var newclass = '';
+            for (var i = 1; i <= data.totalpages; i++) {
+                if (pagedata.page == i) {
+                    newclass = 'active';
+                } else {
+                    newclass = '';
+                }
+                $scope.pages.push({
+                    pageno: i,
+                    class: newclass
+                });
+            }
+        });
+    }
+    $scope.reload($scope.pagedata);
+    $scope.confDelete = function() {
+        NavigationService.deleteSponsors(function(data, status) {
+            ngDialog.close();
+            window.location.reload();
+        });
+    }
+    $scope.deletefun = function(id) {
+            $.jStorage.set('deletesponsors', id);
+            ngDialog.open({
+                template: 'views/delete.html',
+                closeByEscape: false,
+                controller: 'SponsorsCtrl',
+                closeByDocument: false
+            });
+        }
+        //End Sponsors
+});
+//sponsors Controller
+//createSponsors Controller
+phonecatControllers.controller('createSponsorsCtrl', function($scope, TemplateService, NavigationService, $routeParams, $location, ngDialog) {
+    $scope.template = TemplateService;
+    $scope.menutitle = NavigationService.makeactive('Sponsors');
+    TemplateService.title = $scope.menutitle;
+    TemplateService.submenu = '';
+    TemplateService.content = 'views/createsponsors.html';
+    TemplateService.list = 2;
+    $scope.navigation = NavigationService.getnav();
+    $scope.sponsors = {};
+    $scope.submitForm = function() {
+        NavigationService.saveSponsors($scope.sponsors, function(data, status) {
+            $location.url('/sponsors');
+        });
+    };
+    //createSponsors
+});
+//createSponsors Controller
+//editSponsors Controller
+phonecatControllers.controller('editSponsorsCtrl', function($scope, TemplateService, NavigationService, $routeParams, $location, ngDialog) {
+    $scope.template = TemplateService;
+    $scope.menutitle = NavigationService.makeactive('Sponsors');
+    TemplateService.title = $scope.menutitle;
+    TemplateService.submenu = '';
+    TemplateService.content = 'views/editsponsors.html';
+    TemplateService.list = 2;
+    $scope.navigation = NavigationService.getnav();
+    $scope.sponsors = {};
+    NavigationService.getOneSponsors($routeParams.id, function(data, status) {
+        $scope.sponsors = data; //Add More Array
+    });
+    $scope.submitForm = function() {
+        $scope.sponsors._id = $routeParams.id;
+        NavigationService.saveSponsors($scope.sponsors, function(data, status) {
+            $location.url('/sponsors');
+        });
+    };
+    //editSponsors
+});
 //Add New Controller
