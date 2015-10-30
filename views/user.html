@@ -9,7 +9,7 @@
                     </div>
                     <div class="panel-body">
                         <div class="bot search-box">
-                            <input type="search" name="search" ng-model="pagedata.search" placeholder="Search" ng-change="reload(pagedata);" />
+                            <input type="search" name="search" ng-model="pagedata.search" placeholder="Search" ng-change="reload({page:'1',limit:pagedata.limit,search:pagedata.search});" />
                             <a href="#/createuser" class="right btn btn-primary all-btn create-btn">Create User</a>
                             <div class="pull-right">
                                 <select ng-model="pagedata.limit" class="form-control" ng-change="reload({page:'1',limit:pagedata.limit,search:pagedata.search})">
