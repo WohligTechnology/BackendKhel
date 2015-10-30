@@ -316,7 +316,7 @@ var navigationservice = angular.module('navigationservice', [])
             }).success(callback);
         },getOneSponsors: function(id, callback) {
             $http({
-                url: adminurl + 'sponsors/findone',
+                url: adminurl + 'sponsor/findone',
                 method: 'POST',
                 data: {
                     '_id': id
@@ -325,7 +325,7 @@ var navigationservice = angular.module('navigationservice', [])
         },
         findLimitedSponsors: function(sponsors, callback) {
             $http({
-                url: adminurl + 'sponsors/findlimited',
+                url: adminurl + 'sponsor/findlimited',
                 method: 'POST',
                 data: {
                     'search': sponsors.search,
@@ -336,7 +336,7 @@ var navigationservice = angular.module('navigationservice', [])
         },
         deleteSponsors: function(callback) {
             $http({
-                url: adminurl + 'sponsors/delete',
+                url: adminurl + 'sponsor/delete',
                 method: 'POST',
                 data: {
                     '_id': $.jStorage.get('deletesponsors')
@@ -345,7 +345,7 @@ var navigationservice = angular.module('navigationservice', [])
         },
         saveSponsors: function(data, callback) {
             $http({
-                url: adminurl + 'sponsors/save',
+                url: adminurl + 'sponsor/save',
                 method: 'POST',
                 data: data
             }).success(callback);
