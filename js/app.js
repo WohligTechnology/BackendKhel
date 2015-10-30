@@ -113,7 +113,11 @@ firstapp.directive('array', function() {
             var EditVal = $scope.EditVal;
             $scope.label = attr.label;
             $scope.GalleryStrucObj = {};
-            $scope.GalleryStrucObj.keyOf = _.pluck(GalleryStructure, "name");
+            $scope.GalleryStrucObj.keyOf = [];
+            $scope.keyOfArr = _.pluck(GalleryStructure, "name");
+            _.each($scope.keyOfArr, function(n) {
+                $scope.GalleryStrucObj.keyOf.push(_.camelCase(n).toLowerCase());
+            });
             $scope.GalleryStrucObj.structure = GalleryStructure;
             $scope.GalleryStrucObj.valuesOf = [];
             $scope.GalleryStrucObj.valuesOf = EditVal;

@@ -641,10 +641,10 @@ phonecatControllers.controller('editTeamCtrl', function($scope, TemplateService,
         });
     };
     $scope.PincodeStructure = [{
-        "name": "area",
+        "name": "Area",
         "type": "text"
     }, {
-        "name": "pincode",
+        "name": "Pincode",
         "type": "text"
     }];
     $scope.PlayerStructure = [{
