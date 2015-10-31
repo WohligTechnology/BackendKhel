@@ -1863,6 +1863,7 @@ phonecatControllers.controller('createScheduleCtrl', function($scope, TemplateSe
     TemplateService.list = 2;
     $scope.navigation = NavigationService.getnav();
     $scope.schedule = {};
+    $scope.schedule.events = [];
 
     $scope.addEvent = function (crdv) {
         if (!crdv.events) {
