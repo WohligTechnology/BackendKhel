@@ -1,4 +1,5 @@
 var adminurl = "http://130.211.164.146:81/";
+// var adminurl = "http://130.211.164.146:1337/";
 // var adminurl = "http://localhost:1337/";
 var adminlogin = {
     "username": "admin@admin.com",
@@ -51,6 +52,11 @@ var navigationservice = angular.module('navigationservice', [])
             name: 'Folder',
             active: '',
             link: '#/folder',
+            subnav: []
+        }, {
+            name: 'Version',
+            active: '',
+            link: '#/version',
             subnav: []
         }, //Add New Left
 
@@ -313,7 +319,8 @@ var navigationservice = angular.module('navigationservice', [])
                 method: 'POST',
                 data: data
             }).success(callback);
-        },getOneSponsors: function(id, callback) {
+        },
+        getOneSponsors: function(id, callback) {
             $http({
                 url: adminurl + 'sponsor/findone',
                 method: 'POST',
@@ -420,6 +427,24 @@ var navigationservice = angular.module('navigationservice', [])
                 method: 'POST',
                 data: data
             }).success(callback);
-        }, //Add New Service
+        },
+        saveVersion: function(data, callback) {
+            $http({
+                url: adminurl + 'version/save',
+                method: 'POST',
+                data: data
+            }).success(callback);
+        },
+        findOneVersion: function(callback) {
+            $http({
+                url: adminurl + 'version/findone',
+                method: 'POST',
+                data: {
+                    _id: "5638421140a7afc36318db17"
+                }
+            }).success(callback);
+        }
+
+        //Add New Service
     }
 })

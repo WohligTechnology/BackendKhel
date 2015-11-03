@@ -95,6 +95,9 @@ firstapp.config(
             }).when('/editvideogallery/:id', {
                 templateUrl: 'views/template.html',
                 controller: 'editVideogalleryCtrl'
+            }).when('/version', {
+                templateUrl: 'views/template.html',
+                controller: 'VersionCtrl'
             }). //Add New Path
 
         otherwise({

@@ -1088,7 +1088,7 @@ phonecatControllers.controller('createFolderCtrl', function($scope, TemplateServ
     };
 
     var imagejstupld = "";
-    
+
     $scope.usingFlash = FileAPI && FileAPI.upload != null;
     $scope.fileReaderSupported = window.FileReader != null && (window.FileAPI == null || FileAPI.html5 != false);
     $scope.uploadRightAway = true;
@@ -1865,24 +1865,24 @@ phonecatControllers.controller('createScheduleCtrl', function($scope, TemplateSe
     $scope.schedule = {};
     $scope.schedule.events = [];
 
-    $scope.addEvent = function (crdv) {
+    $scope.addEvent = function(crdv) {
         if (!crdv.events) {
             crdv.events = [{
                 "time": "",
                 "event": "",
                 "category": "",
-                "court":""
-                }];
+                "court": ""
+            }];
         } else {
             crdv.events.push({
                 "time": "",
                 "event": "",
                 "category": "",
-                "court":""
+                "court": ""
             });
         }
     };
-    $scope.removeEvent = function (i, dev) {
+    $scope.removeEvent = function(i, dev) {
         dev.splice(i, 1);
     };
 
@@ -1908,24 +1908,24 @@ phonecatControllers.controller('editScheduleCtrl', function($scope, TemplateServ
         $scope.schedule = data; //Add More Array
     });
 
-    $scope.addEvent = function (crdv) {
+    $scope.addEvent = function(crdv) {
         if (!crdv.events) {
             crdv.events = [{
                 "time": "",
                 "event": "",
                 "category": "",
-                "court":""
-                }];
+                "court": ""
+            }];
         } else {
             crdv.events.push({
                 "time": "",
                 "event": "",
                 "category": "",
-                "court":""
+                "court": ""
             });
         }
     };
-    $scope.removeEvent = function (i, dev) {
+    $scope.removeEvent = function(i, dev) {
         dev.splice(i, 1);
     };
 
@@ -2029,4 +2029,28 @@ phonecatControllers.controller('editSponsorsCtrl', function($scope, TemplateServ
     };
     //editSponsors
 });
+
+phonecatControllers.controller('VersionCtrl', function($scope, TemplateService, NavigationService, $routeParams, $location, ngDialog) {
+    $scope.template = TemplateService;
+    $scope.menutitle = NavigationService.makeactive('Version');
+    TemplateService.title = $scope.menutitle;
+    TemplateService.submenu = '';
+    TemplateService.content = 'views/version.html';
+    TemplateService.list = 2;
+    $scope.navigation = NavigationService.getnav();
+
+    NavigationService.findOneVersion(function(data) {
+        console.log(data);
+        $scope.version = data;
+    });
+
+    $scope.submitForm = function() {
+        NavigationService.saveVersion($scope.version, function(data) {
+            console.log(data);
+        });
+    }
+
+    //End Version
+});
+//sponsors Controller
 //Add New Controller
