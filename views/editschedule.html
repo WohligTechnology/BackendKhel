@@ -62,12 +62,12 @@
                                                 <input type="text" class="form-control" ng-model="sch.event" placeholder="Event">
                                             </td>
                                             <td>
-                                                <input type="text" class="form-control" ng-model="sch.category" placeholder="{{schedule.cat}}" ng-if="sch.category">
-                                                <input type="text" class="form-control" ng-model="sch.zone" placeholder="{{schedule.cat}}" ng-if="sch.zone">
+                                                <input type="text" class="form-control" ng-model="sch.category" placeholder="{{schedule.cat}}" ng-if="schedule.cat=='Category'">
+                                                <input type="text" class="form-control" ng-model="sch.zone" placeholder="{{schedule.cat}}" ng-if="schedule.cat=='Zone'">
                                             </td>
                                             <td>
-                                                <input type="text" class="form-control" ng-model="sch.court" placeholder="{{schedule.cou}}" ng-if="sch.court">
-                                                <input type="text" class="form-control" ng-model="sch.track" placeholder="{{schedule.cou}}" ng-if="sch.track">
+                                                <input type="text" class="form-control" ng-model="sch.court" placeholder="{{schedule.cou}}" ng-if="schedule.cou=='Court'">
+                                                <input type="text" class="form-control" ng-model="sch.track" placeholder="{{schedule.cou}}" ng-if="schedule.cou=='Track'">
                                             </td>
                                             <td>
                                                 <input class="bt btn-danger" type="button" ng-click="removeEvent(schedule.events.indexOf(sch),schedule.events);" value="Delete Event">
