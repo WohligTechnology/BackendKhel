@@ -86,6 +86,24 @@ firstapp.config(
             }).when('/editsponsors/:id', {
                 templateUrl: 'views/template.html',
                 controller: 'editSponsorsCtrl'
+            }).when('/winner', {
+                templateUrl: 'views/template.html',
+                controller: 'WinnerCtrl'
+            }).when('/createwinner', {
+                templateUrl: 'views/template.html',
+                controller: 'createWinnerCtrl'
+            }).when('/editwinner/:id', {
+                templateUrl: 'views/template.html',
+                controller: 'editWinnerCtrl'
+            }).when('/agegrp', {
+                templateUrl: 'views/template.html',
+                controller: 'AgegrpCtrl'
+            }).when('/createagegrp', {
+                templateUrl: 'views/template.html',
+                controller: 'createAgegrpCtrl'
+            }).when('/editagegrp/:id', {
+                templateUrl: 'views/template.html',
+                controller: 'editAgegrpCtrl'
             }).when('/videogallery', {
                 templateUrl: 'views/template.html',
                 controller: 'VideogalleryCtrl'

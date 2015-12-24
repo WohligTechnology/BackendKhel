@@ -2045,12 +2045,197 @@ phonecatControllers.controller('VersionCtrl', function($scope, TemplateService, 
     });
 
     $scope.submitForm = function() {
-        NavigationService.saveVersion($scope.version, function(data) {
-            console.log(data);
+            NavigationService.saveVersion($scope.version, function(data) {
+                console.log(data);
+            });
+        }
+        //End Version
+});
+phonecatControllers.controller('WinnerCtrl', function($scope, TemplateService, NavigationService, $routeParams, $location, ngDialog) {
+    $scope.template = TemplateService;
+    $scope.menutitle = NavigationService.makeactive('Winner');
+    TemplateService.title = $scope.menutitle;
+    TemplateService.submenu = '';
+    TemplateService.content = 'views/winner.html';
+    TemplateService.list = 2;
+    $scope.navigation = NavigationService.getnav();
+    $scope.winner = [];
+    $scope.pagedata = {};
+    $scope.pagedata.page = 1;
+    $scope.pagedata.limit = '20';
+    $scope.pagedata.search = '';
+    $scope.number = 100;
+    $scope.reload = function(pagedata) {
+        $scope.pagedata = pagedata;
+        NavigationService.findLimitedWinner($scope.pagedata, function(data, status) {
+            $scope.winner = data;
+            $scope.pages = [];
+            var newclass = '';
+            for (var i = 1; i <= data.totalpages; i++) {
+                if (pagedata.page == i) {
+                    newclass = 'active';
+                } else {
+                    newclass = '';
+                }
+                $scope.pages.push({
+                    pageno: i,
+                    class: newclass
+                });
+            }
         });
     }
+    $scope.reload($scope.pagedata);
+    $scope.confDelete = function() {
+        NavigationService.deleteWinner(function(data, status) {
+            ngDialog.close();
+            window.location.reload();
+        });
+    }
+    $scope.deletefun = function(id) {
+            $.jStorage.set('deletewinner', id);
+            ngDialog.open({
+                template: 'views/delete.html',
+                closeByEscape: false,
+                controller: 'WinnerCtrl',
+                closeByDocument: false
+            });
+        }
+        //End Sponsors
+});
+//Winner Controller
+//createWinner Controller
+phonecatControllers.controller('createWinnerCtrl', function($scope, TemplateService, NavigationService, $routeParams, $location, ngDialog) {
+    $scope.template = TemplateService;
+    $scope.menutitle = NavigationService.makeactive('Winner');
+    TemplateService.title = $scope.menutitle;
+    TemplateService.submenu = '';
+    TemplateService.content = 'views/createwinner.html';
+    TemplateService.list = 2;
+    $scope.navigation = NavigationService.getnav();
+    $scope.winner = {};
 
-    //End Version
+    $scope.submitForm = function() {
+        NavigationService.saveWinner($scope.winner, function(data, status) {
+            $location.url('/winner');
+        });
+    };
+    //createSponsors
+});
+//createWinner Controller
+//editWinner Controller
+phonecatControllers.controller('editWinnerCtrl', function($scope, TemplateService, NavigationService, $routeParams, $location, ngDialog) {
+    $scope.template = TemplateService;
+    $scope.menutitle = NavigationService.makeactive('Winner');
+    TemplateService.title = $scope.menutitle;
+    TemplateService.submenu = '';
+    TemplateService.content = 'views/editwinner.html';
+    TemplateService.list = 2;
+    $scope.navigation = NavigationService.getnav();
+    $scope.winner = {};
+    NavigationService.getOneWinner($routeParams.id, function(data, status) {
+        $scope.winner = data; //Add More Array
+    });
+
+    $scope.submitForm = function() {
+        $scope.winner._id = $routeParams.id;
+        NavigationService.saveWinner($scope.winner, function(data, status) {
+            $location.url('/winner');
+        });
+    };
+    //editSponsors
+});
+phonecatControllers.controller('AgegrpCtrl', function($scope, TemplateService, NavigationService, $routeParams, $location, ngDialog) {
+    $scope.template = TemplateService;
+    $scope.menutitle = NavigationService.makeactive('Agegrp');
+    TemplateService.title = $scope.menutitle;
+    TemplateService.submenu = '';
+    TemplateService.content = 'views/agegrp.html';
+    TemplateService.list = 2;
+    $scope.navigation = NavigationService.getnav();
+    $scope.agegrp = [];
+    $scope.pagedata = {};
+    $scope.pagedata.page = 1;
+    $scope.pagedata.limit = '20';
+    $scope.pagedata.search = '';
+    $scope.number = 100;
+    $scope.reload = function(pagedata) {
+        $scope.pagedata = pagedata;
+        NavigationService.findLimitedAgegrp($scope.pagedata, function(data, status) {
+            $scope.agegrp = data;
+            $scope.pages = [];
+            var newclass = '';
+            for (var i = 1; i <= data.totalpages; i++) {
+                if (pagedata.page == i) {
+                    newclass = 'active';
+                } else {
+                    newclass = '';
+                }
+                $scope.pages.push({
+                    pageno: i,
+                    class: newclass
+                });
+            }
+        });
+    }
+    $scope.reload($scope.pagedata);
+    $scope.confDelete = function() {
+        NavigationService.deleteAgegrp(function(data, status) {
+            ngDialog.close();
+            window.location.reload();
+        });
+    }
+    $scope.deletefun = function(id) {
+            $.jStorage.set('deleteagegrp', id);
+            ngDialog.open({
+                template: 'views/delete.html',
+                closeByEscape: false,
+                controller: 'AgegrpCtrl',
+                closeByDocument: false
+            });
+        }
+        //End Sponsors
+});
+//Agegrp Controller
+//createAgegrp Controller
+phonecatControllers.controller('createAgegrpCtrl', function($scope, TemplateService, NavigationService, $routeParams, $location, ngDialog) {
+    $scope.template = TemplateService;
+    $scope.menutitle = NavigationService.makeactive('Agegrp');
+    TemplateService.title = $scope.menutitle;
+    TemplateService.submenu = '';
+    TemplateService.content = 'views/createagegrp.html';
+    TemplateService.list = 2;
+    $scope.navigation = NavigationService.getnav();
+    $scope.agegrp = {};
+
+    $scope.submitForm = function() {
+        NavigationService.saveAgegrp($scope.agegrp, function(data, status) {
+            $location.url('/agegrp');
+        });
+    };
+    //createSponsors
+});
+//createAgegrp Controller
+//editAgegrp Controller
+phonecatControllers.controller('editAgegrpCtrl', function($scope, TemplateService, NavigationService, $routeParams, $location, ngDialog) {
+    $scope.template = TemplateService;
+    $scope.menutitle = NavigationService.makeactive('Agegrp');
+    TemplateService.title = $scope.menutitle;
+    TemplateService.submenu = '';
+    TemplateService.content = 'views/editagegrp.html';
+    TemplateService.list = 2;
+    $scope.navigation = NavigationService.getnav();
+    $scope.agegrp = {};
+    NavigationService.getOneAgegrp($routeParams.id, function(data, status) {
+        $scope.agegrp = data; //Add More Array
+    });
+
+    $scope.submitForm = function() {
+        $scope.agegrp._id = $routeParams.id;
+        NavigationService.saveAgegrp($scope.agegrp, function(data, status) {
+            $location.url('/agegrp');
+        });
+    };
+    //editSponsors
 });
 //sponsors Controller
 //Add New Controller

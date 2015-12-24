@@ -29,6 +29,11 @@ var navigationservice = angular.module('navigationservice', [])
             link: '#/schedule',
             subnav: []
         }, {
+            name: 'Winner',
+            active: '',
+            link: '#/winner',
+            subnav: []
+        },{
             name: 'Notification',
             active: '',
             link: '#/notification',
@@ -237,6 +242,78 @@ var navigationservice = angular.module('navigationservice', [])
         saveSlider: function(data, callback) {
             $http({
                 url: adminurl + 'slider/save',
+                method: 'POST',
+                data: data
+            }).success(callback);
+        },
+        getOneWinner: function(id, callback) {
+            $http({
+                url: adminurl + 'winner/findone',
+                method: 'POST',
+                data: {
+                    '_id': id
+                }
+            }).success(callback);
+        },
+        findLimitedWinner: function(winner, callback) {
+            $http({
+                url: adminurl + 'winner/findlimited',
+                method: 'POST',
+                data: {
+                    'search': winner.search,
+                    'pagesize': parseInt(winner.limit),
+                    'pagenumber': parseInt(winner.page)
+                }
+            }).success(callback);
+        },
+        deleteWinner: function(callback) {
+            $http({
+                url: adminurl + 'winner/delete',
+                method: 'POST',
+                data: {
+                    '_id': $.jStorage.get('deletewinner')
+                }
+            }).success(callback);
+        },
+        saveWinner: function(data, callback) {
+            $http({
+                url: adminurl + 'winner/save',
+                method: 'POST',
+                data: data
+            }).success(callback);
+        },
+        getOneAgegrp: function(id, callback) {
+            $http({
+                url: adminurl + 'agegrp/findone',
+                method: 'POST',
+                data: {
+                    '_id': id
+                }
+            }).success(callback);
+        },
+        findLimitedAgegrp: function(agegrp, callback) {
+            $http({
+                url: adminurl + 'agegrp/findlimited',
+                method: 'POST',
+                data: {
+                    'search': agegrp.search,
+                    'pagesize': parseInt(agegrp.limit),
+                    'pagenumber': parseInt(agegrp.page)
+                }
+            }).success(callback);
+        },
+        deleteAgegrp: function(callback) {
+            $http({
+                url: adminurl + 'agegrp/delete',
+                method: 'POST',
+                data: {
+                    '_id': $.jStorage.get('deleteagegrp')
+                }
+            }).success(callback);
+        },
+        saveAgegrp: function(data, callback) {
+            $http({
+                url: adminurl + 'agegrp/save',
                 method: 'POST',
                 data: data
             }).success(callback);

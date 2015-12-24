@@ -1,0 +1,65 @@
+<div class="page">
+    <h2 class="title">
+</h2>
+    <div class="row">
+        <div class="col-md-12">
+            <section class="panel panel-default" style="border-radius:0px;">
+                <div class="panel-heading panel-hdr"><span class="glyphicon glyphicon-th mr5"></span>Create Winner
+                </div>
+                <div class="panel-body">
+                    <form name="form_constraints" class="form-validation" data-ng-submit="submitForm()">
+                        <div class='form-group'>
+                            <select ng-model='winner.event' class='form-control' required>
+                                <option value=''>Select Event</option>
+                                <option value='Triathlon'>Triathlon</option>
+                                <option value='3 legged'>3 legged</option>
+                                <option value='4 legged'>4 legged</option>
+                                <option value='Mixed Relay'>Mixed Relay</option>
+                                <option value='Tug Of War'>Tug Of War</option>
+                                <option value='Skating'>Skating</option>
+                                <option value='Kho-Kho'>Kho-Kho</option>
+                                <option value='Musical Station'>Musical Station</option>
+                                <option value='Khatron Ke Khiladi'>Khatron Ke Khiladi</option>
+                                <option value='Lagori'>Lagori</option>
+                                <option value='Throw Ball'>Throw Ball</option>
+                                <option value='Handminton'>Handminton</option>
+                                <option value='Bucket Ball'>Bucket Ball</option>
+                                <option value='Quiz'>Quiz</option>
+                                <option value='Dance'>Dance</option>
+                                <option value='Street Play'>Street Play</option>
+                                <option value='Cycling'>Cycling</option>
+                            </select>
+                        </div>
+                        <!-- <select ng-model='winner.event' class='form-control' ng-options="venue.value as venue.value for venue in venues" required></select> -->
+                        <div class="form-group">
+                            <select ng-model='winner.category' class='form-control'>
+                                <option value=''>Select Categoory</option>
+                                <option value='Male'>Male</option>
+                                <option value='Female'>Female</option>
+                                <option value='Male U16'>Male U16</option>
+                                <option value='Male 16+'>Male 16+</option>
+                                <option value='Female U16'>Female U16</option>
+                                <option value='Female 16+'>Female 16+</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <select ng-model='winner.age' class='form-control'>
+                                <option value=''>Select Age Group</option>
+                                <option value='Male'>Male</option>
+                                <option value='Female'>Female</option>
+                                <option value='Male U16'>Male U16</option>
+                                <option value='Male 16+'>Male 16+</option>
+                                <option value='Female U16'>Female U16</option>
+                                <option value='Female 16+'>Female 16+</option>
+                            </select>
+                        </div>
+                        <!--Add New Tags-->
+                        <div class="text-center" style="padding-bottom:20px;">
+                            <button type="submit" class="btn btn-primary all-btn">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
