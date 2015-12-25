@@ -29,11 +29,16 @@ var navigationservice = angular.module('navigationservice', [])
             link: '#/schedule',
             subnav: []
         }, {
+            name: 'Age Group',
+            active: '',
+            link: '#/agegrp',
+            subnav: []
+        }, {
             name: 'Winner',
             active: '',
             link: '#/winner',
             subnav: []
-        },{
+        }, {
             name: 'Notification',
             active: '',
             link: '#/notification',
