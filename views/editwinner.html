@@ -46,7 +46,7 @@
                             <label>Winner 1</label>
                             <select ng-model='winner.win1' class='form-control'>
                                 <option value="">Select Winner 1</option>
-                                <option value="{{teams.image}}" ng-repeat="teams in team" ng-if="winner.win2!=team.image && winner.win3!=team.image">{{teams.teamname}}</option>
+                                <option value="{{teams.teamname}}" ng-repeat="teams in team">{{teams.teamname}}</option>
                             </select>
                         </div>
                         <div class="form-group">
@@ -54,7 +54,7 @@
                             <label>Winner 2</label>
                             <select ng-model='winner.win2' class='form-control'>
                                 <option value="">Select Winner 1</option>
-                                <option value="{{teams.image}}" ng-repeat="teams in secteam" ng-if="winner.win1!=team.image && winner.win3!=team.image">{{teams.teamname}}</option>
+                                <option value="{{teams.teamname}}" ng-repeat="teams in secteam">{{teams.teamname}}</option>
                             </select>
                         </div>
                         <div class="form-group">
@@ -62,7 +62,7 @@
                             <label>Winner 3</label>
                             <select ng-model='winner.win3' class='form-control'>
                                 <option value="">Select Winner 1</option>
-                                <option value="{{teams.image}}" ng-repeat="teams in thiteam" ng-if="winner.win2!=team.image && winner.win3!=team.image">{{teams.teamname}}</option>
+                                <option value="{{teams.teamname}}" ng-repeat="teams in thiteam">{{teams.teamname}}</option>
                             </select>
                         </div>
                         <div class="text-center" style="padding-bottom:20px;">
