@@ -1,6 +1,6 @@
 var adminurl = "http://130.211.164.146:81/";
 // var adminurl = "http://130.211.164.146:1337/";
-var adminurl = "http://192.168.0.125:81/";
+// var adminurl = "http://192.168.0.125:81/";
 var adminlogin = {
     "username": "admin@admin.com",
     "password": "admin123"
