@@ -30,15 +30,24 @@
                                 <option value='Cycling'>Cycling</option>
                             </select>
                         </div>
-                        <!-- <select ng-model='winner.event' class='form-control' ng-options="venue.value as venue.value for venue in venues" required></select> -->
                         <div class="form-group">
-                            <select ng-model='winner.category' class='form-control' required>
-                                <option value=''>Select Categoory</option>
-                                <option value='Male'>Male</option>
-                                <option value='Female'>Female</option>
-                            </select>
+                            <!-- GENDER -->
+                            <select ng-model='winner.category' class='form-control' ng-options="cat.category as cat.category for cat in category"></select>
                         </div>
-                        <!--Add New Tags-->
+                        <div class="form-group">
+                            <!-- AGE -->
+                            <select ng-model='winner.age' class='form-control' ng-options="ages.age as ages.age for ages in age"></select>
+                        </div>
+                        <div class="form-group">
+                            <!-- WINNER1 -->
+                            <select ng-model='winner.age' class='form-control' ng-options="win as win for win in winner"></select>
+                        </div><div class="form-group">
+                            <!-- WINNER2 -->
+                            <select ng-model='winner.age' class='form-control' ng-options="ages.age as ages.age for ages in winner"></select>
+                        </div><div class="form-group">
+                            <!-- WINNER3 -->
+                            <select ng-model='winner.age' class='form-control' ng-options="ages.age as ages.age for ages in winner"></select>
+                        </div>
                         <div class="text-center" style="padding-bottom:20px;">
                             <button type="submit" class="btn btn-primary all-btn">Submit</button>
                         </div>
