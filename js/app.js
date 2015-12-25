@@ -206,10 +206,22 @@ firstapp.directive('capitalizeFirst', function($parse) {
         }
     };
 });
+
 firstapp.filter('touppercase', function() {
     return function(input) {
         var firstletter = input.substr(0, 1);
         var remaining = input.substr(1);
         return firstletter.toUpperCase() + remaining;
+    };
+});
+
+firstapp.filter('rmext', function() {
+    return function(input) {
+        if (input) {
+            var split = input.split('.');
+            return split[0];
+        } else {
+            return input;
+        }
     };
 });

@@ -24,13 +24,22 @@
                                 <thead>
                                     <tr class="bg-dark">
                                         <th class="text-center">Event</th>
+                                        <th class="text-center">Category</th>
+                                        <th class="text-center">Age</th>
+                                        <th class="text-center">Winner 1</th>
+                                        <th class="text-center">Winner 2</th>
+                                        <th class="text-center">Winner 3</th>
                                         <th colspan="2" class="text-center">Operations</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr ng-repeat="value in winner.data">
-                                        <td class="text-center">{{value.event}}
-                                        </td>
+                                        <td class="text-center">{{value.event}}</td>
+                                        <td class="text-center">{{value.category}}</td>
+                                        <td class="text-center">{{value.age}}</td>
+                                        <td class="text-center">{{value.win1 | rmext}}</td>
+                                        <td class="text-center">{{value.win2 | rmext}}</td>
+                                        <td class="text-center">{{value.win3 | rmext}}</td>
                                         <td class="text-center"><a ng-click="deletefun(value._id)" class="btn btn-primary all-btn"><i class="fa fa-times"></i></a>
                                         </td>
                                         <td class="text-center">

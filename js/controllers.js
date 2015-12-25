@@ -2068,6 +2068,7 @@ phonecatControllers.controller('WinnerCtrl', function($scope, TemplateService, N
     $scope.reload = function(pagedata) {
         $scope.pagedata = pagedata;
         NavigationService.findLimitedWinner($scope.pagedata, function(data, status) {
+            console.log(data);
             $scope.winner = data;
             $scope.pages = [];
             var newclass = '';
@@ -2113,12 +2114,36 @@ phonecatControllers.controller('createWinnerCtrl', function($scope, TemplateServ
     TemplateService.list = 2;
     $scope.navigation = NavigationService.getnav();
     $scope.winner = {};
+    $scope.winner.win1 = 1;
+    $scope.winner.win2 = 2;
+    $scope.winner.win3 = 3;
 
     $scope.submitForm = function() {
         NavigationService.saveWinner($scope.winner, function(data, status) {
             $location.url('/winner');
         });
     };
+
+    $scope.getCatAge = function() {
+        NavigationService.getCatAge($scope.winner.event, function(data) {
+            console.log(data);
+            if (data.value != "false") {
+                $scope.category = data.category;
+                $scope.age = data.age;
+            }
+        })
+    }
+
+    $scope.getTeam = function() {
+        NavigationService.getTeam(function(data) {
+            $scope.team = data;
+            $scope.secteam = data;
+            $scope.thiteam = data;
+        })
+    }
+
+    $scope.getTeam();
+
     //createSponsors
 });
 //createWinner Controller
@@ -2132,8 +2157,32 @@ phonecatControllers.controller('editWinnerCtrl', function($scope, TemplateServic
     TemplateService.list = 2;
     $scope.navigation = NavigationService.getnav();
     $scope.winner = {};
+
+    $scope.getCatAge = function() {
+        NavigationService.getCatAge($scope.winner.event, function(data) {
+            console.log(data);
+            if (data.value != "false") {
+                $scope.category = data.category;
+                $scope.age = data.age;
+            }
+        })
+    }
+
+    $scope.getTeam = function() {
+        NavigationService.getTeam(function(data) {
+            $scope.team = data;
+            $scope.secteam = data;
+            $scope.thiteam = data;
+        })
+    }
+
+    $scope.getTeam();
+
     NavigationService.getOneWinner($routeParams.id, function(data, status) {
-        $scope.winner = data; //Add More Array
+        console.log(data);
+        $scope.winner = data;
+        $scope.getCatAge(data.event);
+        //Add More Array
     });
 
     $scope.submitForm = function() {
@@ -2146,7 +2195,7 @@ phonecatControllers.controller('editWinnerCtrl', function($scope, TemplateServic
 });
 phonecatControllers.controller('AgegrpCtrl', function($scope, TemplateService, NavigationService, $routeParams, $location, ngDialog) {
     $scope.template = TemplateService;
-    $scope.menutitle = NavigationService.makeactive('Agegrp');
+    $scope.menutitle = NavigationService.makeactive('Age Group');
     TemplateService.title = $scope.menutitle;
     TemplateService.submenu = '';
     TemplateService.content = 'views/agegrp.html';
@@ -2161,6 +2210,7 @@ phonecatControllers.controller('AgegrpCtrl', function($scope, TemplateService, N
     $scope.reload = function(pagedata) {
         $scope.pagedata = pagedata;
         NavigationService.findLimitedAgegrp($scope.pagedata, function(data, status) {
+            console.log(data);
             $scope.agegrp = data;
             $scope.pages = [];
             var newclass = '';
@@ -2199,15 +2249,29 @@ phonecatControllers.controller('AgegrpCtrl', function($scope, TemplateService, N
 //createAgegrp Controller
 phonecatControllers.controller('createAgegrpCtrl', function($scope, TemplateService, NavigationService, $routeParams, $location, ngDialog) {
     $scope.template = TemplateService;
-    $scope.menutitle = NavigationService.makeactive('Agegrp');
+    $scope.menutitle = NavigationService.makeactive('Age Group');
     TemplateService.title = $scope.menutitle;
     TemplateService.submenu = '';
     TemplateService.content = 'views/createagegrp.html';
     TemplateService.list = 2;
     $scope.navigation = NavigationService.getnav();
     $scope.agegrp = {};
+    $scope.agegrp.event = '';
+
+    $scope.agegrp.category = [];
+    $scope.CategoryStructure = [{
+        "name": "Category",
+        "type": "text"
+    }];
+
+    $scope.agegrp.age = [];
+    $scope.AgeStructure = [{
+        "name": "Age",
+        "type": "text"
+    }];
 
     $scope.submitForm = function() {
+        console.log($scope.agegrp);
         NavigationService.saveAgegrp($scope.agegrp, function(data, status) {
             $location.url('/agegrp');
         });
@@ -2218,16 +2282,30 @@ phonecatControllers.controller('createAgegrpCtrl', function($scope, TemplateServ
 //editAgegrp Controller
 phonecatControllers.controller('editAgegrpCtrl', function($scope, TemplateService, NavigationService, $routeParams, $location, ngDialog) {
     $scope.template = TemplateService;
-    $scope.menutitle = NavigationService.makeactive('Agegrp');
+    $scope.menutitle = NavigationService.makeactive('Age Group');
     TemplateService.title = $scope.menutitle;
     TemplateService.submenu = '';
     TemplateService.content = 'views/editagegrp.html';
     TemplateService.list = 2;
     $scope.navigation = NavigationService.getnav();
     $scope.agegrp = {};
+    $scope.agegrp.category = [];
+    $scope.agegrp.age = [];
+
     NavigationService.getOneAgegrp($routeParams.id, function(data, status) {
         $scope.agegrp = data; //Add More Array
+        console.log($scope.agegrp);
     });
+
+    $scope.CategoryStructure = [{
+        "name": "Category",
+        "type": "text"
+    }];
+
+    $scope.AgeStructure = [{
+        "name": "Age",
+        "type": "text"
+    }];
 
     $scope.submitForm = function() {
         $scope.agegrp._id = $routeParams.id;

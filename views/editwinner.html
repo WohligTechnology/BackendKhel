@@ -4,12 +4,13 @@
     <div class="row">
         <div class="col-md-12">
             <section class="panel panel-default" style="border-radius:0px;">
-                <div class="panel-heading panel-hdr"><span class="glyphicon glyphicon-th mr5"></span>Create Winner
+                <div class="panel-heading panel-hdr"><span class="glyphicon glyphicon-th mr5"></span>Edit Winner
                 </div>
                 <div class="panel-body">
                     <form name="form_constraints" class="form-validation" data-ng-submit="submitForm()">
                         <div class='form-group'>
-                            <select ng-model='winner.event' class='form-control' required>
+                            <label>Event</label>
+                            <select ng-model='winner.event' class='form-control' required ng-change="getCatAge();">
                                 <option value=''>Select Event</option>
                                 <option value='Triathlon'>Triathlon</option>
                                 <option value='3 legged'>3 legged</option>
@@ -31,22 +32,38 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <!-- GENDER -->
+                            <!-- Category -->
+                            <label>Category</label>
                             <select ng-model='winner.category' class='form-control' ng-options="cat.category as cat.category for cat in category"></select>
                         </div>
                         <div class="form-group">
                             <!-- AGE -->
+                            <label>Age</label>
                             <select ng-model='winner.age' class='form-control' ng-options="ages.age as ages.age for ages in age"></select>
                         </div>
                         <div class="form-group">
                             <!-- WINNER1 -->
-                            <select ng-model='winner.age' class='form-control' ng-options="win as win for win in winner"></select>
-                        </div><div class="form-group">
+                            <label>Winner 1</label>
+                            <select ng-model='winner.win1' class='form-control'>
+                                <option value="">Select Winner 1</option>
+                                <option value="{{teams.image}}" ng-repeat="teams in team" ng-if="winner.win2!=team.image && winner.win3!=team.image">{{teams.teamname}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
                             <!-- WINNER2 -->
-                            <select ng-model='winner.age' class='form-control' ng-options="ages.age as ages.age for ages in winner"></select>
-                        </div><div class="form-group">
+                            <label>Winner 2</label>
+                            <select ng-model='winner.win2' class='form-control'>
+                                <option value="">Select Winner 1</option>
+                                <option value="{{teams.image}}" ng-repeat="teams in secteam" ng-if="winner.win1!=team.image && winner.win3!=team.image">{{teams.teamname}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
                             <!-- WINNER3 -->
-                            <select ng-model='winner.age' class='form-control' ng-options="ages.age as ages.age for ages in winner"></select>
+                            <label>Winner 3</label>
+                            <select ng-model='winner.win3' class='form-control'>
+                                <option value="">Select Winner 1</option>
+                                <option value="{{teams.image}}" ng-repeat="teams in thiteam" ng-if="winner.win2!=team.image && winner.win3!=team.image">{{teams.teamname}}</option>
+                            </select>
                         </div>
                         <div class="text-center" style="padding-bottom:20px;">
                             <button type="submit" class="btn btn-primary all-btn">Submit</button>
